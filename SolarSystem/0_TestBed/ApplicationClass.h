@@ -20,6 +20,17 @@ class ApplicationClass
 	String m_sSelectedObject;//Selected Object
 	matrix4 m_m4SelectedObject;//Creeper Model Matrix
 
+	matrix4 m4Sun;
+	matrix4 m4Mercury;
+	matrix4 m4Venus;
+	matrix4 m4Earth;
+	matrix4 m4Mars;
+	matrix4 m4Jupiter;
+	matrix4 m4Saturn;
+	matrix4 m4Uranus;
+	matrix4 m4Neptune;
+	matrix4 m4Pluto;
+
 	//Standard variables
 	static ApplicationClass* m_pInstance; // Singleton for this class
 	SystemSingleton* m_pSystem;// Singleton of the system
