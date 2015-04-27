@@ -17,7 +17,7 @@ class MyEngineDLL OctreeSingleton
 	int m_nOctants;			//Number of octants in the Tree
 	int m_nMaxSubtrees;		//Maximum sublevel of the tree
 	int m_nMaxObjects;		//Maximum number of objects per octant
-	OctantClass* m_pRoot;	//Root of the Tree
+	OctantClass* m_pRoot;	//Root of the Tree. Stores all the vertices of the world. We want to subdivide this node into 8 parts.
 	static OctreeSingleton* m_pInstance; // Singleton pointer
 
 public:

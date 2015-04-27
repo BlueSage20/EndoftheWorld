@@ -21,7 +21,7 @@ public:
 	bool m_bEmpty;	//Is the octant Empty?
 	bool m_bLeaf;	//Is the octant a leaf?
 	
-	int m_nLevel;	//Level of the octant in the tree
+	int m_nLevel;	//Level of the octant in the tree. This is only needed when we start collision
 	int m_nID;		//ID of the octant
 	
 	float m_fSize;	//Size of the octant m_fSize^3 is its volume
@@ -47,22 +47,23 @@ public:
 
 	////Properties
 	///* Asks the Octant if its a Leaf */
-	//bool IsLeaf(void);
+	bool IsLeaf(void);
 	///* Asks the octant if its colliding with any Bounding Objects */
-	//bool IsEmpty(void);
+	bool IsEmpty(void);
 	///* Asks the octant for its bounding object list */
-	//std::vector<BoundingObjectClass*> GetBoundingObjectList(void);
+	std::vector<BoundingObjectClass*> GetBoundingObjectList(void);
 	///* Sets the Bounding Object List for the octant */
-	//void SetBoundingObjectList(std::vector<BoundingObjectClass*> a_lBoundingObject);
+	void SetBoundingObjectList(std::vector<BoundingObjectClass*> a_lBoundingObject);
 	///* Sets the size of the octant */
-	//void SetSize(float a_fSize);
+	void SetSize(float a_fSize);
 	///* Sets the center of the octant */
-	//void SetCenter(vector3 a_v3Center);
+	void SetCenter(vector3 a_v3Center);
 	///* Gets the specified child of the octant */
-	//OctantClass* GetChild(int a_nOctant);
+	OctantClass* GetChild(int a_nOctant);
 
 	
 	/* Renders the AABB of the octant if its not empty */
+	//this box contains our "world" (or current view of it)
 	void Render();
 	
 	/* Calculates the collider of the octant based on the center and its size */

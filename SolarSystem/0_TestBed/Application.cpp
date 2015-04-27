@@ -1,7 +1,36 @@
 #include "ApplicationClass.h"
+
+//OCTREE NOTES
+//Look at the OctantClass.h and OctreeSingleton.h files. They have all methods needed
+//See what data structures are being used
+//Get the box (by the root node), and find out how many times to subdivide root.
+//Then display the box. Subdivisions are dependent on amount of things in the scene.
+//Collision check: a list of lists?
+//------------------------------------------------------------------------------------------
+//An Octant uses a list of bounding objects
+//Data you will want to query is stored in leaf nodes
+//Make 'n' calls to whatever is the insert method (one for each point)
+//So, we need to get the points of the models
+
+
+
+
+OctreeSingleton *octree;
+
 void ApplicationClass::InitUserAppVariables()
 {
+	//Frustum = camera view. We may need to store this as a variable
 	m_pCamera->SetPosition(vector3(0.0f, 0.0f, 65.0f));
+	//OctantClass *octree;
+
+	//Create a new octree
+	//The singleton class contains the Octant.h
+	//It holds the octants
+	//Let's get the instance of it first
+	octree->GetInstance();
+
+	//It starts out as empty
+	//octree->IsEmpty = true;
 
 	//m_pMeshMngr->LoadModelUnthreaded("Minecraft\\MC_Steve.obj", "Steve");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\00_Sun.obj", "Sun");
@@ -14,6 +43,7 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\07_Uranus.obj", "Uranus");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
+	//Is this where we call the Octree's "Render" method?
 
 	/*for (int nCreepers = 0; nCreepers  < 20; nCreepers ++)
 	{
@@ -63,6 +93,15 @@ void ApplicationClass::Update (void)
 
 	m4Pluto = glm::rotate(matrix4(IDENTITY), -3.0f*fTotalTime, vector3(0.0, 0.0f, 1.0f)) * glm::translate(27.0f, 0.0f, 0.0f);
 	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");
+
+	//push planets into octree
+	//if(octree->IsEmpty)
+	//{
+		//Do stuff
+
+		//At the end, set IsEmpty to "false"
+
+	//}
 
 	//First person camera movement
 	if(m_bFPC == true)
