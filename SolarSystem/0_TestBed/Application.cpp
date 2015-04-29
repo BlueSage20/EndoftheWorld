@@ -15,7 +15,7 @@
 
 
 
-//OctreeSingleton *octree;
+OctreeSingleton *octree;
 float randStartMercury;
 float randStartVenus;
 float randStartEarth;
@@ -44,10 +44,15 @@ void ApplicationClass::InitUserAppVariables()
 	//The singleton class contains the Octant.h
 	//It holds the octants
 	//Let's get the instance of it first
-	//octree->GetInstance();
+	octree->GetInstance();
+	//octree->Init(); //inaccessible
 
 	//It starts out as empty
 	//octree->IsEmpty = true;
+
+	//Try to get the root
+	//octree->m_pRoot->IsEmpty = true;
+	octree->m_pRoot
 
 	m4Sun = matrix4(IDENTITY); //we need this, maybe?
 	//Mercury
