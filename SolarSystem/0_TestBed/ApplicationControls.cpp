@@ -91,6 +91,7 @@ void ApplicationClass::ProcessKeyboard(void)
 	}
 #pragma endregion
 	//ModelSelection
+	/*
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
 	{
 		m_sSelectedObject = "Cow";
@@ -120,7 +121,7 @@ void ApplicationClass::ProcessKeyboard(void)
 		m_sSelectedObject = "Pig";
 		m_m4SelectedObject = m_pMeshMngr->GetModelMatrix(m_sSelectedObject);
 	}
-
+	*/
 	//Camera
 #pragma region Camera
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -155,6 +156,7 @@ void ApplicationClass::ProcessMouse(void)
 	}
 	else
 	{
+		/*
 		if(bLeft_Released == true)
 		{
 			m_pMeshMngr->SetVisibleBoundingObject(false);
@@ -173,6 +175,7 @@ void ApplicationClass::ProcessMouse(void)
 				m_pMeshMngr->SetVisibleBoundingObjectHierarchy(true, m_sSelectedObject);
 			}
 		}
+		*/
 		bLeft_Released = false;
 	}
 }

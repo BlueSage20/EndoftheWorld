@@ -236,7 +236,7 @@ void ApplicationClass::Update (void)
 	if(m_bArcBall == true)
 	{
 		ArcBall();
-		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject); //Setting up the Model Matrix
+		//m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject); //Setting up the Model Matrix
 	}
 
 	printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
