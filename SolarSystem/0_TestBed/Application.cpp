@@ -65,7 +65,7 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\06_Saturn.obj", "Saturn");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\07_Uranus.obj", "Uranus");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
-	m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
+	//m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
 	//Is this where we call the Octree's "Render" method?
 
 	/*for (int nCreepers = 0; nCreepers  < 20; nCreepers ++)
@@ -190,23 +190,23 @@ void ApplicationClass::Update (void)
 
 	//Each Planet rotates around its own Matrix, its own Day%, and then the correct Vec3
 	//It used to be matrix4(IDENTITY), and then these numbers times fTotalTime (in order):
-	//-27, -24, -21, -18, -15, -12, -9, -6, -3
+	//-27, -24, -21, -18, -15, -12, -9, -6, -3. I will add a bit because of planet sizes
 	//and then vector3(Z vector)
 
 	/*m4Mercury = glm::rotate(matrix4(IDENTITY), -27.0f*fTotalTime, vector3(0.0, 0.0f, 1.0f)) * glm::translate(3.0f, 0.0f, 0.0f);
 	m_pMeshMngr->SetModelMatrix(m4Mercury, "Mercury");*/
 	//m4Mercury = glm::rotate(m4Mercury, fMercuryDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(3.0f, 0.0f, 0.0f);
 	m4Mercury = glm::rotate(matrix4(IDENTITY), -27.0f*(fTotalTime+randStartMercury), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(3.0f, 0.0f, 0.0f) 
-					* glm::rotate(matrix4(IDENTITY), fMercuryDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-
+				* glm::translate(3.6f, 0.0f, 0.0f) 
+					* glm::rotate(matrix4(IDENTITY), fMercuryDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					  * glm::scale(0.29f, 0.29f, 0.29f);
 	m_pMeshMngr->SetModelMatrix(m4Mercury, "Mercury");
 
 	//m4Venus = glm::rotate(m4Venus, fVenusDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(6.0f, 0.0f, 0.0f);
 	m4Venus = glm::rotate(matrix4(IDENTITY), -24.0f*(fTotalTime + randStartVenus), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(6.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fVenusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-
+				* glm::translate(6.7f, 0.0f, 0.0f)
+					* glm::rotate(matrix4(IDENTITY), fVenusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					   * glm::scale(0.71f, 0.71f, 0.71f);
 	m_pMeshMngr->SetModelMatrix(m4Venus, "Venus");
 
 	//m4Earth = glm::rotate(m4Earth, fEarthDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(9.0f, 0.0f, 0.0f);
@@ -215,9 +215,9 @@ void ApplicationClass::Update (void)
 	//m4Earth = glm::rotate(m4Earth, fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
 
 	m4Earth = glm::rotate(matrix4(IDENTITY), -21.0f*(fTotalTime + randStartEarth), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(9.0f, 0.0f, 0.0f) 
-					*  glm::rotate(matrix4(IDENTITY), fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-
+				* glm::translate(9.3f, 0.0f, 0.0f) 
+					*  glm::rotate(matrix4(IDENTITY), fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					    * glm::scale(0.75f, 0.75f, 0.75f);
 	m_pMeshMngr->SetModelMatrix(m4Earth, "Earth");
 	
 
@@ -225,49 +225,52 @@ void ApplicationClass::Update (void)
 	//m4Mars = glm::translate(MarsTranslationX, 0.0f, MarsTranslationZ);
 	//m4Mars = glm::rotate(m4Mars, fMarsDayPercent, vector3(0.0f, 1.0f, 0.0f)); //negative % time 360
 	m4Mars = glm::rotate(matrix4(IDENTITY), -18.0f*(fTotalTime + randStartMars), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(12.0f, 0.0f, 0.0f) 
-					* glm::rotate(matrix4(IDENTITY), fMarsDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
+				* glm::translate(14.1f, 0.0f, 0.0f) 
+					* glm::rotate(matrix4(IDENTITY), fMarsDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					  * glm::scale(0.4f, 0.4f, 0.4f);
 	m_pMeshMngr->SetModelMatrix(m4Mars, "Mars");
 
 	//m4Jupiter = glm::rotate(m4Jupiter, fJupiterDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(15.0f, 0.0f, 0.0f);
 	//m4Jupiter = glm::translate(JupiterTranslationX, 0.0f, JupiterTranslationZ);
 	//m4Jupiter = glm::rotate(m4Jupiter, fJupiterDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Jupiter = glm::rotate(matrix4(IDENTITY), -15.0f*(fTotalTime + randStartJupiter), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(15.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fJupiterDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
+				* glm::translate(19.32f, 0.0f, 0.0f)
+					* glm::rotate(matrix4(IDENTITY), fJupiterDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					 * glm::scale(7.4f, 7.4f, 7.4f);
 	m_pMeshMngr->SetModelMatrix(m4Jupiter, "Jupiter");
 
 	//m4Saturn = glm::rotate(m4Saturn, fSaturnDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(18.0f, 0.0f, 0.0f);
 	//m4Saturn = glm::translate(SaturnTranslationX, 0.0f, SaturnTranslationZ);
 	//m4Saturn = glm::rotate(m4Saturn, fSaturnDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Saturn = glm::rotate(matrix4(IDENTITY), -12.0f*(fTotalTime + randStartSaturn), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(18.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fSaturnDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
+				* glm::translate(35.44f, 0.0f, 0.0f)
+					* glm::rotate(matrix4(IDENTITY), fSaturnDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					  * glm::scale(6.08f, 6.08f, 6.08f);
 	m_pMeshMngr->SetModelMatrix(m4Saturn, "Saturn");
 
 	//m4Uranus = glm::rotate(m4Uranus, fUranusDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(21.0f, 0.0f, 0.0f);
 	//m4Uranus = glm::translate(UranusTranslationX, 0.0f, UranusTranslationZ);
 	//m4Uranus = glm::rotate(m4Uranus, fUranusDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Uranus = glm::rotate(matrix4(IDENTITY), -9.0f*(fTotalTime + randStartUranus), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(21.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fUranusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
+				* glm::translate(50.0f, 0.0f, 0.0f)
+					* glm::rotate(matrix4(IDENTITY), fUranusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f)) 
+					  * glm::scale(3.0f, 3.0f, 3.0f);
 	m_pMeshMngr->SetModelMatrix(m4Uranus, "Uranus");
 
 	//m4Neptune = glm::rotate(m4Neptune, fNeptuneDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(24.0f, 0.0f, 0.0f);
 	//m4Neptune = glm::translate(NeptuneTranslationX, 0.0f, NeptuneTranslationZ);
 	//m4Neptune = glm::rotate(m4Neptune, fNeptuneDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Neptune = glm::rotate(matrix4(IDENTITY), -6.0f*(fTotalTime + randStartNeptune), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(24.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fNeptuneDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
+				* glm::translate(60.0f, 0.0f, 0.0f)
+					* glm::rotate(matrix4(IDENTITY), fNeptuneDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					  * glm::scale(2.91f, 2.91f, 2.91f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
 
-	//m4Pluto = glm::rotate(m4Pluto, fPlutoDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(27.0f, 0.0f, 0.0f);
-	//m4Pluto = glm::translate(PlutoTranslationX, 0.0f, PlutoTranslationZ);
-	//m4Pluto = glm::rotate(m4Pluto, fPlutoDayPercent, vector3(0.0f, 1.0f, 0.0f));
-	m4Pluto = glm::rotate(matrix4(IDENTITY), -3.0f*(fTotalTime + randStartPluto), vector3(0.0, 0.0f, 1.0f)) 
+	//Do we need Pluto?
+	/*m4Pluto = glm::rotate(matrix4(IDENTITY), -3.0f*(fTotalTime + randStartPluto), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(27.0f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fPlutoDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");
+	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");*/
 
 	//push planets into octree
 	//if(octree->IsEmpty)
