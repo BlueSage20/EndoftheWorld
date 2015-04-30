@@ -30,6 +30,7 @@ public:
 	OctantClass* GetOctant(int a_nOctantID);
 
 	/* Generates the Tree using the provided Bounding Object List and maximum levels and objects per octant */
+	//This is the method that will build the octree. Can we pass the root node into it?
 	void GenerateOctree(std::vector<BoundingObjectClass*> a_lBoundingObject, int a_nMaxSubtrees = 4, int a_nMaxObjects = 2);
 	
 	/* Calculates the Octant(s) the provided Bounding object is currently located without reconstructing the tree*/

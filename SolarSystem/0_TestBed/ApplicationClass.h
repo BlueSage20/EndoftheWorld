@@ -20,6 +20,10 @@ class ApplicationClass
 	String m_sSelectedObject;//Selected Object
 	matrix4 m_m4SelectedObject;//Creeper Model Matrix
 
+	//Maybe this will work, to get model vertices
+	//if we need to
+	//GLM_MODEL sun;
+
 	matrix4 m4Sun;
 	matrix4 m4Mercury;
 	matrix4 m4Venus;

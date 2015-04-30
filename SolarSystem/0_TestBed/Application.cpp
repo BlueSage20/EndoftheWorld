@@ -11,11 +11,15 @@
 //Data you will want to query is stored in leaf nodes
 //Make 'n' calls to whatever is the insert method (one for each point)
 //So, we need to get the points of the models
+//--------------------------------------------------------------------------------------------
+//We do build the octree in this .cpp file
+//MapValue hte camera XY into pixels (into Alberto's coordinate system?)
+//Check the code of the LERP/SLERP list for help
 
 
 
-
-OctreeSingleton *octree;
+//OctreeSingleton *octree;
+//OctantClass *baby; //this guy is inserted into the tree
 float randStartMercury;
 float randStartVenus;
 float randStartEarth;
@@ -36,7 +40,7 @@ void ApplicationClass::InitUserAppVariables()
 	randStartUranus = rand();
 	randStartNeptune = rand();
 	randStartPluto = rand();
-	//Frustum = camera view. We may need to store this as a variable
+	//Frustum = camera view. We MAY need to store this as a variable
 	m_pCamera->SetPosition(vector3(0.0f, 0.0f, 65.0f));
 	//OctantClass *octree;
 
@@ -44,7 +48,7 @@ void ApplicationClass::InitUserAppVariables()
 	//The singleton class contains the Octant.h
 	//It holds the octants
 	//Let's get the instance of it first
-	octree->GetInstance();
+	//octree->GetInstance();
 	//octree->Init(); //inaccessible
 
 	//It starts out as empty
@@ -52,7 +56,7 @@ void ApplicationClass::InitUserAppVariables()
 
 	//Try to get the root
 	//octree->m_pRoot->IsEmpty = true;
-	octree->m_pRoot
+	
 
 	m4Sun = matrix4(IDENTITY); //we need this, maybe?
 	//Mercury
@@ -72,14 +76,6 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
 	//m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
 	//Is this where we call the Octree's "Render" method?
-
-	/*for (int nCreepers = 0; nCreepers  < 20; nCreepers ++)
-	{
-		//create 20 instances of one model
-		//sharing memory
-		//sphericalRand give random vector of sphere with specified radius
-		m_pMeshMngr->LoadModelUnthreaded("Minecraft\\MC_Creeper.obj", "Creeper", glm::translate(glm::sphericalRand(5.0f)));
-	}*/
 	
 }
 void ApplicationClass::Update (void)
@@ -190,16 +186,7 @@ void ApplicationClass::Update (void)
 	float PlutoTranslationX = 33 * (glm::cos(fPlutoDayPercent * (360 *  ((PI/180))))); 
 	float PlutoTranslationZ = 33 * (glm::sin(fPlutoDayPercent * (360 * ((PI/180)))));
 
-	//m4Sun = glm::rotate(matrix4(IDENTITY), -15.0f*fTotalTime, vector3(0.0, 0.0f, 1.0f)) * glm::translate(0.0f, 0.0f, 0.0f);
-	//m_pMeshMngr->SetModelMatrix(m4Sun, "Sun");
-
-	//Each Planet rotates around its own Matrix, its own Day%, and then the correct Vec3
-	//It used to be matrix4(IDENTITY), and then these numbers times fTotalTime (in order):
-	//-27, -24, -21, -18, -15, -12, -9, -6, -3. I will add a bit because of planet sizes
-	//and then vector3(Z vector)
-
-	/*m4Mercury = glm::rotate(matrix4(IDENTITY), -27.0f*fTotalTime, vector3(0.0, 0.0f, 1.0f)) * glm::translate(3.0f, 0.0f, 0.0f);
-	m_pMeshMngr->SetModelMatrix(m4Mercury, "Mercury");*/
+	
 	//m4Mercury = glm::rotate(m4Mercury, fMercuryDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(3.0f, 0.0f, 0.0f);
 	m4Mercury = glm::rotate(matrix4(IDENTITY), -27.0f*(fTotalTime+randStartMercury), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(3.6f, 0.0f, 0.0f) 
@@ -226,8 +213,6 @@ void ApplicationClass::Update (void)
 	m_pMeshMngr->SetModelMatrix(m4Earth, "Earth");
 	
 
-	//m4Mars = glm::rotate(m4Mars, fMarsDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(12.0f, 0.0f, 0.0f);
-	//m4Mars = glm::translate(MarsTranslationX, 0.0f, MarsTranslationZ);
 	//m4Mars = glm::rotate(m4Mars, fMarsDayPercent, vector3(0.0f, 1.0f, 0.0f)); //negative % time 360
 	m4Mars = glm::rotate(matrix4(IDENTITY), -18.0f*(fTotalTime + randStartMars), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(14.1f, 0.0f, 0.0f) 
@@ -235,8 +220,7 @@ void ApplicationClass::Update (void)
 					  * glm::scale(0.4f, 0.4f, 0.4f);
 	m_pMeshMngr->SetModelMatrix(m4Mars, "Mars");
 
-	//m4Jupiter = glm::rotate(m4Jupiter, fJupiterDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(15.0f, 0.0f, 0.0f);
-	//m4Jupiter = glm::translate(JupiterTranslationX, 0.0f, JupiterTranslationZ);
+
 	//m4Jupiter = glm::rotate(m4Jupiter, fJupiterDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Jupiter = glm::rotate(matrix4(IDENTITY), -15.0f*(fTotalTime + randStartJupiter), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(19.32f, 0.0f, 0.0f)
@@ -244,8 +228,7 @@ void ApplicationClass::Update (void)
 					 * glm::scale(7.4f, 7.4f, 7.4f);
 	m_pMeshMngr->SetModelMatrix(m4Jupiter, "Jupiter");
 
-	//m4Saturn = glm::rotate(m4Saturn, fSaturnDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(18.0f, 0.0f, 0.0f);
-	//m4Saturn = glm::translate(SaturnTranslationX, 0.0f, SaturnTranslationZ);
+	
 	//m4Saturn = glm::rotate(m4Saturn, fSaturnDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Saturn = glm::rotate(matrix4(IDENTITY), -12.0f*(fTotalTime + randStartSaturn), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(35.44f, 0.0f, 0.0f)
@@ -253,8 +236,7 @@ void ApplicationClass::Update (void)
 					  * glm::scale(6.08f, 6.08f, 6.08f);
 	m_pMeshMngr->SetModelMatrix(m4Saturn, "Saturn");
 
-	//m4Uranus = glm::rotate(m4Uranus, fUranusDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(21.0f, 0.0f, 0.0f);
-	//m4Uranus = glm::translate(UranusTranslationX, 0.0f, UranusTranslationZ);
+	
 	//m4Uranus = glm::rotate(m4Uranus, fUranusDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Uranus = glm::rotate(matrix4(IDENTITY), -9.0f*(fTotalTime + randStartUranus), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(50.0f, 0.0f, 0.0f)
@@ -262,8 +244,7 @@ void ApplicationClass::Update (void)
 					  * glm::scale(3.0f, 3.0f, 3.0f);
 	m_pMeshMngr->SetModelMatrix(m4Uranus, "Uranus");
 
-	//m4Neptune = glm::rotate(m4Neptune, fNeptuneDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(24.0f, 0.0f, 0.0f);
-	//m4Neptune = glm::translate(NeptuneTranslationX, 0.0f, NeptuneTranslationZ);
+
 	//m4Neptune = glm::rotate(m4Neptune, fNeptuneDayPercent, vector3(0.0f, 1.0f, 0.0f));
 	m4Neptune = glm::rotate(matrix4(IDENTITY), -6.0f*(fTotalTime + randStartNeptune), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(60.0f, 0.0f, 0.0f)
@@ -278,13 +259,15 @@ void ApplicationClass::Update (void)
 	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");*/
 
 	//push planets into octree
-	//if(octree->IsEmpty)
-	//{
+	/*for(int i = 0; i < baby->m_lBoundingObject.size; i++)
+	{
 		//Do stuff
+		baby->m_lBoundingObject[0] = m_pMeshMngr->LoadModelUnthreaded("Planets\\03_Earth.obj", "Earth");
 
-		//At the end, set IsEmpty to "false"
+		//At the end, set IsEmpty to "false". I guess I can't access baby->m_bEmpty
 
-	//}
+	}*/
+	//octree->GenerateOctree(baby->m_lBoundingObject, 4, 2);
 
 	//First person camera movement
 	if(m_bFPC == true)
