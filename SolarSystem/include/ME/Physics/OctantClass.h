@@ -77,7 +77,7 @@ private:
 	void Init(void);
 
 	/* Swaps the content of one octant with another */
-	void Swap(OctantClass& other);
+	//void Swap(OctantClass& other);
 };
 
 EXPIMP_TEMPLATE template class MyEngineDLL std::vector<OctantClass>;
