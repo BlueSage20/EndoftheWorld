@@ -10,18 +10,25 @@ OctopusTree::~OctopusTree(void)
 {
 }
 
-OctopusTree::CalculateBounds(void)
+OctopusTree::CalculateBounds(const unsigned int count) //should it be void instead?
 {
-	/*// What we'll give to the caller
-      Bounds  b;
+	// What we'll give to the caller
+    //Bounds  b;
+	BoundingObjectClass* b;
 
-        // Determine min/max of the given set of points
-        Point   min = *points[0];
-        Point   max = *points[0];
+        
+	
+	// Determine min/max of the given set of points
+        //Point   min = *points[0];
+       // Point   max = *points[0];
+	   b.m_v3minAABBG = 
+       b.m_v3maxAABBG = 
 
         for (unsigned int i = 1; i < count; i++)
         {
-                const Point &p = *points[i];
+            //this looks eerily similar to the code from the midterm
+			//and several other assignments
+			const Point &p = *points[i];
                 if (p.x < min.x) min.x = p.x;
                 if (p.y < min.y) min.y = p.y;
                 if (p.z < min.z) min.z = p.z;
@@ -31,7 +38,8 @@ OctopusTree::CalculateBounds(void)
         }
 
         // The radius of the volume (dimensions in each direction)
-        Point   radius = max - min;
+        //Point   radius = max - min;
+		b.m_fRadius = max - min;
 
         // Find the center of this space
         b.center = min + radius * 0.5;
@@ -45,5 +53,5 @@ OctopusTree::CalculateBounds(void)
         if (b.radius < radius.z) b.radius = radius.z;
 
         // Done
-        return b;*/
+        return b;
 }

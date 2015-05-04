@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include "ME\Physics\BoundingObjectClass.h"
+#include "MyEngine.h"
 //using namespace std;
 
 /// CLASS DECLARATION ///
@@ -16,6 +17,8 @@ public:
 	int treeLevel; // keeping track of sublevels
 	int octID; // index lookup for all octant subdivisions (will help determin which asteroid hit what planet)
 	float octLWH; // octant size = octLWH^3; we don't care what dimension, just that it makes a cube
+
+	MeshManagerSingleton* pMeshMngr = MeshManagerSingleton::GetInstance(); //keep this in here for now
 
 	vector3 octCentroid; //
 
@@ -32,7 +35,7 @@ public:
 	
 /// MEMBER FUNCTIONS ///
 	void Render(); // Renders AABB if not empty
-	void CalculateBounds(void); // 
+	void CalculateBounds(const unsigned int count); //should this be a void?
 
 	// Did not create any helper/get/set methods because it's useless clutter
 	// because all our variables right now are public. There isn't much cause for concern
