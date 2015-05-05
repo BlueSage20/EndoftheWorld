@@ -1,5 +1,8 @@
 #pragma once
 #include "OctopusTree.h"
+
+namespace MyEngine
+
 class bigTree
 {
 public:
@@ -7,23 +10,23 @@ public:
 	~bigTree(void);
 
 	//Members
-	int octants;
-	int maxSublevel;
-	int maxPerOctant;
-	OctopusTree* rootNode;
-	static bigTree* pointer;
+	int octants; //Number of octants in the Tree
+	int maxSublevels; //Maximum sublevel of the tree
+	int maxObjects; //Maximum number of objects per octant
+	OctopusTree* rootNode; //Root of the Tree. Stores all the vertices of the world. We want to subdivide this node into 8 parts.
+	static bigTree* pointer; //Singleton pointer
 
 	//Methods
 	//gets instance of our tree
 	static bigTree* getter();
-	//destorys instance of our tree
+	//destroys instance of our tree
 	static void destroy(void);
 
 	//get it by id
 	OctopusTree* GetOctant(int a_nOctantID);
 
 	//This is the method that will build the octree. Can we pass the root node into it?
-	void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxTree = 4, int maxObjects = 2);
+	void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2);
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bo);

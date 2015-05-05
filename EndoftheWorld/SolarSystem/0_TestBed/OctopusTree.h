@@ -4,7 +4,8 @@
 #include <glm/glm.hpp>
 #include "ME\Physics\BoundingObjectClass.h"
 #include "MyEngine.h"
-//using namespace std;
+
+using namespace MyEngine;
 
 /// CLASS DECLARATION ///
 class OctopusTree

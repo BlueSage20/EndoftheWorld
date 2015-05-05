@@ -5,17 +5,30 @@ OctopusTree::OctopusTree(void)
 {
 }
 
+OctopusTree::OctopusTree(OctopusTree const& other)
+{
+
+}
+
+OctopusTree::OctopusTree& operator=(OctopusTree const& other)
+{
+
+}
 
 OctopusTree::~OctopusTree(void)
 {
 }
 
-OctopusTree::CalculateBounds(const unsigned int count) //should it be void instead?
+void OctopusTree::Render()
+{
+
+}
+
+void OctopusTree::CalculateBounds(const unsigned int count) //should it be void instead?
 {
 	// What we'll give to the caller
     //Bounds  b;
 	BoundingObjectClass* b;
-
         
 	
 	// Determine min/max of the given set of points

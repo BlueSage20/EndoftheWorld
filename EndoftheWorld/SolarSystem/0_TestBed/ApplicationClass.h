@@ -23,7 +23,6 @@ class ApplicationClass
 	//Maybe this will work, to get model vertices
 	//if we need to
 	//GLM_MODEL sun;
-
 	matrix4 m4Sun;
 	matrix4 m4Mercury;
 	matrix4 m4Venus;
