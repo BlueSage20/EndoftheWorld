@@ -7,16 +7,17 @@ OctopusTree::OctopusTree(void)
 
 OctopusTree::OctopusTree(OctopusTree const& other)
 {
-
+	//copy constructor
 }
 
 OctopusTree::OctopusTree& operator=(OctopusTree const& other)
 {
-
+	//copy assignment operator
 }
 
 OctopusTree::~OctopusTree(void)
 {
+	//Destructor. We can leave blank for now.
 }
 
 void OctopusTree::Render()
