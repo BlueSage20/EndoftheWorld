@@ -27,44 +27,54 @@ void OctopusTree::Render()
 
 void OctopusTree::CalculateBounds(const unsigned int count) //should it be void instead?
 {
+	//SHOULD WE use properties of the BoundingObject, or the OctopusTree?
+	//See the code below
+	
+	
 	// What we'll give to the caller
     //Bounds  b;
+	//We could also use this class's BoundingObject* octBO;???
 	BoundingObjectClass* b;
         
 	
 	// Determine min/max of the given set of points
         //Point   min = *points[0];
-       // Point   max = *points[0];
-	   b.m_v3minAABBG = 
-       b.m_v3maxAABBG = 
+       //Point   max = *points[0];
+	  //In our older code, v3_Min/Max = lVertices[0];
+	 //lVertices = a_lVertex (found in BO class)
+	   b.m_v3minAABBG = *a_lVertex[0];
+       b.m_v3maxAABBG = *a_lVertex[0];
+
+	   //beugh
 
         for (unsigned int i = 1; i < count; i++)
         {
             //this looks eerily similar to the code from the midterm
 			//and several other assignments
-			const Point &p = *points[i];
-                if (p.x < min.x) min.x = p.x;
-                if (p.y < min.y) min.y = p.y;
-                if (p.z < min.z) min.z = p.z;
-                if (p.x > max.x) max.x = p.x;
-                if (p.y > max.y) max.y = p.y;
-                if (p.z > max.z) max.z = p.z;
+			const Point &p = *a_lVertex[i];
+                if (p.x < b.m_v3minAABBG.x) b.m_v3minAABBG.x = p.x;
+                if (p.y < b.m_v3minAABBG.y) b.m_v3minAABBG.y = p.y;
+                if (p.z < b.m_v3minAABBG.z) b.m_v3minAABBG.z = p.z;
+                if (p.x > b.m_v3maxAABBG.x) b.m_v3maxAABBG.x = p.x;
+                if (p.y > b.m_v3maxAABBG.y) b.m_v3maxAABBG.y = p.y;
+                if (p.z > b.m_v3maxAABBG.z) b.m_v3maxAABBG.z = p.z;
         }
 
         // The radius of the volume (dimensions in each direction)
         //Point   radius = max - min;
-		b.m_fRadius = max - min;
+		b.m_fRadius = b.m_v3maxAABBG - b.m_v3minAABBG;
 
         // Find the center of this space
-        b.center = min + radius * 0.5;
+		//do we use b.center, or this class's vector3 octCentroid?
+        b.center = b.m_v3minAABBG + b.m_fRadius * 0.5;
 
         // We want a CUBIC space. By this, I mean we want a bounding cube, not
         // just a bounding box. We already have the center, we just need a
         // radius that contains the entire volume. To do this, we find the
         // maxumum value of the radius' X/Y/Z components and use that
-        b.radius = radius.x;
-        if (b.radius < radius.y) b.radius = radius.y;
-        if (b.radius < radius.z) b.radius = radius.z;
+        b.radius = b.radius.x;
+        if (b.radius < b.radius.y) b.radius = b.radius.y;
+        if (b.radius < b.radius.z) b.radius = b.radius.z;
 
         // Done
         return b;

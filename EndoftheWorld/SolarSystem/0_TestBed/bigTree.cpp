@@ -30,10 +30,35 @@ OctopusTree* bigTree::GetOctant(int a_nOctantID)
 
 void bigTree::InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2)
 {
-	vector<BoundingObjectClass*> newguy;
+	// You know you're a leaf when...
+        //
+        // 1. The number of points is <= the threshold (left side of statement)
+        // 2. We've recursed too deep into the tree
+        //    (currentDepth >= maximumDepth).....maxDepth is on the right side of the statement. Do we need different ints for threshold vs. maxDepth?
+        //
+        //    NOTE: We specifically use ">=" for the depth comparison so that we
+        //          can set the maximumDepth depth to 0 if we want a tree with
+        //          no depth
+	if(maxObjects <= maxSublevels || boundingObject.m_nLevel >= maxSublevels)
+	{
+		// Just store the points in the node, making it a leaf
+        /*_pointCount = count;
+        _points = new Point *[count];
+        //void* memcpy( void* destination, const void* source, std::size_t count ); What is our equivalent
+        return true;*/
 
-	//make new AABB
-	//scale it
+		//
+		//
+		//copy the data somehow
+		boundingObject.isLeaf = true;
+
+		//whatever, I'll figure this out later, we need to get the octant.cpp done
+		//then we can move over to this
+
+
+
+
+	}
 }
 
 void bigTree::updatePosition(BoundingObjectClass* bo)
@@ -100,7 +125,7 @@ bigTree::~bigTree(void)
 {
 }
 
-//RECURSION LOGIG from Wikipedia
+//RECURSION LOGIC from Wikipedia
 //Only for reference
 /*% If this bin meets any exit conditions, do not divide it any further.
 binPointCount = nnz(pointBins==binNo)
