@@ -15,6 +15,7 @@
 //We do build the octree in this .cpp file
 //MapValue hte camera XY into pixels (into Alberto's coordinate system?)
 //Check the code of the LERP/SLERP list for help
+//it works now!
 
 
 
