@@ -31,14 +31,18 @@ static bigTree* getInstance()
 static void destroyInstance()
 {}
 
-Octants* GetOctant(int octantID)
-{}
+/*Octants* GetOctant(int octantID)
+{
+   //this is all it will do for now
+   //It has to return a value
+	return Octants;
+}*/
 
 void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2)
 {
 }
 
-void updatePosition(BoundingObjectsClass* bObj)
+void updatePosition(BoundingObjectClass* bObj)
 {	
 }
 
