@@ -307,7 +307,7 @@ void ApplicationClass::WriteConfig(void)
 		m_pLightMngr->GetColor(0).r, m_pLightMngr->GetColor(0).g, m_pLightMngr->GetColor(0).b);
 	fprintf(pFile,"\nAmbientPower: %.2f", m_pLightMngr->GetIntensity(0));
 
-	fprintf(pFile,"\n\nBackground: [%.3f,%.3f,%.3f,%.3f]",
+	fprintf(pFile,"\n\nBackground: [%.0f,%.0f,%.0f,%.0f]",
 		m_v4ClearColor.r, m_v4ClearColor.g, m_v4ClearColor.b, m_v4ClearColor.a);
 
 	fprintf(pFile,"\n\n# Folders:");

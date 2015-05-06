@@ -28,22 +28,21 @@ float randStartJupiter;
 float randStartSaturn;
 float randStartUranus;
 float randStartNeptune;
-float randStartPluto;
+
 void ApplicationClass::InitUserAppVariables()
 {
-	randStartMercury = rand();
-	randStartVenus = rand();
-	randStartEarth = rand();
-	randStartMars = rand();
-	randStartJupiter = rand();
-	randStartSaturn = rand();
-	randStartUranus = rand();
-	randStartNeptune = rand();
-	randStartPluto = rand();
+	randStartMercury = (float)rand();
+	randStartVenus = (float)rand();
+	randStartEarth = (float)rand();
+	randStartMars = (float)rand();
+	randStartJupiter = (float)rand();
+	randStartSaturn = (float)rand();
+	randStartUranus = (float)rand();
+	randStartNeptune = (float)rand();
 	//Frustum = camera view. We MAY need to store this as a variable
-	m_pCamera->SetPosition(vector3(0.0f, 0.0f, 65.0f));
+	m_pCamera->SetPosition(vector3(0.0f, 0.0f, 120.0f));
 	//OctantClass *octree;
-
+	
 	//Create a new octree
 	//The singleton class contains the Octant.h
 	//It holds the octants
@@ -64,7 +63,6 @@ void ApplicationClass::InitUserAppVariables()
 	m4Earth = matrix4(IDENTITY); //we need this, maybe?
 	//m4Mars = matrix4(IDENTITY);
 
-	//m_pMeshMngr->LoadModelUnthreaded("Minecraft\\MC_Steve.obj", "Steve");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\00_Sun.obj", "Sun");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\01_Mercury.obj", "Mercury");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\02_Venus.obj", "Venus");
@@ -74,7 +72,6 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\06_Saturn.obj", "Saturn");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\07_Uranus.obj", "Uranus");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
-	//m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
 	//Is this where we call the Octree's "Render" method?
 	
 }
@@ -88,20 +85,20 @@ void ApplicationClass::Update (void)
 	float fLapDifference = m_pSystem->StopClock();
 	fTotalTime += fLapDifference;
 
-	//Moon's day will last 28 seconds, 28 seconds will be 100%
-	//static float fMoonDay = 0.0f; Static so it holds its value each call
+	//Static so it holds its value each call
+	static float fEarthYear = 0.0f;
 	static float fMercuryDay = 0.0f; 
 	static float fVenusDay = 0.0f; 
 	static float fMarsDay = 0.0f; 
 	static float fJupiterDay = 0.0f; 
 	static float fSaturnDay = 0.0f; 
 	static float fUranusDay = 0.0f; 
-	static float fNeptuneDay = 0.0f; 
-	static float fPlutoDay = 0.0f; 
-	static float fEarthYear = 0.0f;
+	static float fNeptuneDay = 0.0f;
+	static float fSunDay = 0.0f;
 
 	//Part Two
-	//fMoonDay += fLapDifference; increment depending on the calculated time span
+	//increment depending on the calculated time span
+	fEarthYear += fLapDifference;
 	fMercuryDay += fLapDifference;
 	fVenusDay += fLapDifference;
 	fMarsDay += fLapDifference;
@@ -109,154 +106,120 @@ void ApplicationClass::Update (void)
 	fSaturnDay += fLapDifference;
 	fUranusDay += fLapDifference;
 	fNeptuneDay += fLapDifference;
-	fPlutoDay += fLapDifference;
-	fEarthYear += fLapDifference;
+	fSunDay += fLapDifference;
 
 	//Part Three
 	//Days and hours based off of Earth time, all approximations
-	/*if(fMoonDay > 28.0f)
-		fMoonDay = 0.0f;*/
-	if(fMercuryDay > 58.0f) //58 days
-		fMercuryDay = 0.0f;
-	if(fVenusDay > 243.0f) //243 days
-		fVenusDay = 0.0f;
-	if(fMarsDay > 1.04f) //25 hours
-		fMarsDay = 0.0f;
-	if(fJupiterDay > 0.42f) //10 hours
-		fJupiterDay = 0.0f;
-	if(fSaturnDay > 0.46f) //11 hours
-		fSaturnDay = 0.0f;
-	if(fUranusDay > 0.71f) //17 hours
-		fUranusDay = 0.0f;
-	if(fNeptuneDay > 0.66f) //16 hours
-		fNeptuneDay = 0.0f;
-	if(fPlutoDay > 6.0f) //6 days
-		fPlutoDay = 0.0f;
-	if(fEarthYear > 360.0f)
-		fEarthYear = 0.0f;
+	if(fEarthYear > 360.0f) fEarthYear = 0.0f;
+	if(fMercuryDay > 58.0f) fMercuryDay = 0.0f; //58 days
+	if(fVenusDay > 243.0f) fVenusDay = 0.0f; //243 days
+	if(fMarsDay > 1.04f) fMarsDay = 0.0f; //25 hours
+	if(fJupiterDay > 0.42f) fJupiterDay = 0.0f; //10 hours
+	if(fSaturnDay > 0.46f) fSaturnDay = 0.0f; //11 hours
+	if(fUranusDay > 0.71f) fUranusDay = 0.0f; //17 hours
+	if(fNeptuneDay > 0.66f) fNeptuneDay = 0.0f; //16 hours
+	if(fSunDay > 30.0f) fSunDay = 0.0f; //30 days
+		
 
 	//Part 4
 	//Then we need to map the value to get a percentage, it goes from 0 to 28 and we need it from 0 to 1
-	//float fMoonDayPercent = MapValue( fMoonDay, 0.0f, 28.0f, 0.0f, 1.0f);
 
 	//Earth's calculation is easier, day will last 1 second, 1 second will be 100%
 	float fEarthDayPercent = fTotalTime - static_cast<int>(fTotalTime); 
 
 	// Y number is how many seconds it takes for 1 full rotation. LOWER NUMBERS SPIN FASTER
-	float fEarthYearPercent = MapValue( fEarthYear, 0.0f, 365.0f, 0.0f, 1.0f);
+	float fEarthYearPercent = MapValue(fEarthYear, 0.0f, 365.0f, 0.0f, 1.0f);
+	float fMercuryDayPercent = MapValue(fMercuryDay, 0.0f, 58.0f, 0.0f, 1.0f); //5.8f?
+	float fVenusDayPercent = MapValue(fVenusDay, 0.0f, 243.0f, 0.0f, 1.0f); //2.43f?
+	float fMarsDayPercent = MapValue(fMarsDay, 0.0f, 1.04f, 0.0f, 1.0f);
+	float fJupiterDayPercent = MapValue(fJupiterDay, 0.0f, 0.42f, 0.0f, 1.0f);
+	float fSaturnDayPercent = MapValue(fSaturnDay, 0.0f, 0.46f, 0.0f, 1.0f);
+	float fUranusDayPercent = MapValue(fUranusDay, 0.0f, 0.71f, 0.0f, 1.0f);
+	float fNeptuneDayPercent = MapValue(fNeptuneDay, 0.0f, 0.66f, 0.0f, 1.0f);
+	float fSunDayPercent = MapValue(fSunDay, 0.0f, 30.0f, 0.0f, 1.0f);
 
-	float fMercuryDayPercent = MapValue( fMercuryDay, 0.0f, 5.8f, 0.0f, 1.0f);
-	//
-	float fVenusDayPercent = MapValue( fVenusDay, 0.0f, 2.43f, 0.0f, 1.0f);
-	//
-	float fMarsDayPercent = MapValue( fMarsDay, 0.0f, 1.04f, 0.0f, 1.0f);
-	//
-	float fJupiterDayPercent = MapValue( fJupiterDay, 0.0f, 0.42f, 0.0f, 1.0f);
-	//
-	float fSaturnDayPercent = MapValue( fSaturnDay, 0.0f, 0.46f, 0.0f, 1.0f);
-	//
-	float fUranusDayPercent = MapValue( fUranusDay, 0.0f, 0.71f, 0.0f, 1.0f);
-	//
-	float fNeptuneDayPercent = MapValue( fNeptuneDay, 0.0f, 0.66f, 0.0f, 1.0f);
-	//
-	float fPlutoDayPercent = MapValue( fPlutoDay, 0.0f, 6.0f, 0.0f, 1.0f);
-	//
 	//float container = (fEarthYearPercent * 360 * PI/180) * 2; maybe we need this?
 	
-	//I have to do this shit all over again
-	//Earth translations 
-	float EarthTranslationX = 6 * (glm::cos(fEarthYearPercent * 360 *  ((PI/180)))); 
-	float EarthTranslationZ = 6 * (glm::sin(fEarthYearPercent * 360 * ((PI/180))));
-	//
-	float MarsTranslationX = 10 * (glm::cos(fMarsDayPercent * (360 *  ((PI/180))))); 
-	float MarsTranslationZ = 10 * (glm::sin(fMarsDayPercent * (360 * ((PI/180)))));
-	//
-	float JupiterTranslationX = 18 * (glm::cos(fJupiterDayPercent * (360 *  ((PI/180))))); 
-	float JupiterTranslationZ = 18 * (glm::sin(fJupiterDayPercent * (360 * ((PI/180)))));
-	//
-	float SaturnTranslationX = 21 * (glm::cos(fSaturnDayPercent * (360 *  ((PI/180))))); 
-	float SaturnTranslationZ = 21 * (glm::sin(fSaturnDayPercent * (360 * ((PI/180)))));
-	//
-	float UranusTranslationX = 25 * (glm::cos(fUranusDayPercent * (360 *  ((PI/180))))); 
-	float UranusTranslationZ = 25 * (glm::sin(fUranusDayPercent * (360 * ((PI/180)))));
-	//
-	float NeptuneTranslationX = 30 * (glm::cos(fNeptuneDayPercent * (360 *  ((PI/180))))); 
-	float NeptuneTranslationZ = 30 * (glm::sin(fNeptuneDayPercent * (360 * ((PI/180)))));
-	//
-	float PlutoTranslationX = 33 * (glm::cos(fPlutoDayPercent * (360 *  ((PI/180))))); 
-	float PlutoTranslationZ = 33 * (glm::sin(fPlutoDayPercent * (360 * ((PI/180)))));
+	/* Planet orbit speeds (relative to earth)
+	mercury - 4.00000000
+	venus - 1.71428572
+	earth - 1.00000000
+	mars - 0.52173913
+	jupiter - 0.08450704
+	saturn - 0.03389831
+	uranus - 0.01189296
+	neptune - 0.00606367 */
 
+	/* Planet scales
+	sun - 73.0000
+	mercury - 0.2552
+	venus - 0.6349
+	earth - 0.6682
+	mars - 0.3545
+	jupiter - 7.4989
+	saturn - 6.1067
+	uranus - 2.4618
+	neptune - 2.3827 */
 	
-	//m4Mercury = glm::rotate(m4Mercury, fMercuryDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(3.0f, 0.0f, 0.0f);
-	m4Mercury = glm::rotate(matrix4(IDENTITY), -27.0f*(fTotalTime+randStartMercury), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(3.6f, 0.0f, 0.0f) 
+	m4Sun = glm::rotate(matrix4(IDENTITY), fSunDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
+					 * glm::scale(15.0f, 15.0f, 15.0f);
+	m_pMeshMngr->SetModelMatrix(m4Sun, "Sun");
+
+
+	m4Mercury = glm::rotate(matrix4(IDENTITY), -80.0f*(fTotalTime+randStartMercury), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(18.6f, 0.0f, 0.0f) 
 					* glm::rotate(matrix4(IDENTITY), fMercuryDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					  * glm::scale(0.29f, 0.29f, 0.29f);
+					  * glm::scale(0.2552f, 0.2552f, 0.2552f);
 	m_pMeshMngr->SetModelMatrix(m4Mercury, "Mercury");
 
-	//m4Venus = glm::rotate(m4Venus, fVenusDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(6.0f, 0.0f, 0.0f);
-	m4Venus = glm::rotate(matrix4(IDENTITY), -24.0f*(fTotalTime + randStartVenus), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(6.7f, 0.0f, 0.0f)
+
+	m4Venus = glm::rotate(matrix4(IDENTITY), -34.2857144f*(fTotalTime + randStartVenus), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(21.7f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fVenusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					   * glm::scale(0.71f, 0.71f, 0.71f);
+					   * glm::scale(0.6349f, 0.6349f, 0.6349f);
 	m_pMeshMngr->SetModelMatrix(m4Venus, "Venus");
 
-	//m4Earth = glm::rotate(m4Earth, fEarthDayPercent, vector3(1.0, 1.0f, 0.0f)) * glm::translate(9.0f, 0.0f, 0.0f);
 
-	//m4Earth = glm::translate(EarthTranslationX, 0.0f, EarthTranslationZ);
-	//m4Earth = glm::rotate(m4Earth, fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-
-	m4Earth = glm::rotate(matrix4(IDENTITY), -21.0f*(fTotalTime + randStartEarth), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(9.3f, 0.0f, 0.0f) 
+	m4Earth = glm::rotate(matrix4(IDENTITY), -20.0f*(fTotalTime + randStartEarth), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(25.3f, 0.0f, 0.0f) 
 					*  glm::rotate(matrix4(IDENTITY), fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					    * glm::scale(0.75f, 0.75f, 0.75f);
+					    * glm::scale(0.6682f, 0.6682f, 0.6682f);
 	m_pMeshMngr->SetModelMatrix(m4Earth, "Earth");
 	
 
-	//m4Mars = glm::rotate(m4Mars, fMarsDayPercent, vector3(0.0f, 1.0f, 0.0f)); //negative % time 360
-	m4Mars = glm::rotate(matrix4(IDENTITY), -18.0f*(fTotalTime + randStartMars), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(14.1f, 0.0f, 0.0f) 
+	m4Mars = glm::rotate(matrix4(IDENTITY), -10.4347826f*(fTotalTime + randStartMars), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(28.6f, 0.0f, 0.0f) 
 					* glm::rotate(matrix4(IDENTITY), fMarsDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					  * glm::scale(0.4f, 0.4f, 0.4f);
+					  * glm::scale(0.3545f, 0.3545f, 0.3545f);
 	m_pMeshMngr->SetModelMatrix(m4Mars, "Mars");
 
 
-	//m4Jupiter = glm::rotate(m4Jupiter, fJupiterDayPercent, vector3(0.0f, 1.0f, 0.0f));
-	m4Jupiter = glm::rotate(matrix4(IDENTITY), -15.0f*(fTotalTime + randStartJupiter), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(19.32f, 0.0f, 0.0f)
+	m4Jupiter = glm::rotate(matrix4(IDENTITY), -1.6901408f*(fTotalTime + randStartJupiter), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(39.32f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fJupiterDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					 * glm::scale(7.4f, 7.4f, 7.4f);
+					 * glm::scale(7.4989f, 7.4989f, 7.4989f);
 	m_pMeshMngr->SetModelMatrix(m4Jupiter, "Jupiter");
 
-	
-	//m4Saturn = glm::rotate(m4Saturn, fSaturnDayPercent, vector3(0.0f, 1.0f, 0.0f));
-	m4Saturn = glm::rotate(matrix4(IDENTITY), -12.0f*(fTotalTime + randStartSaturn), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(35.44f, 0.0f, 0.0f)
+
+	m4Saturn = glm::rotate(matrix4(IDENTITY), -0.6779662f*(fTotalTime + randStartSaturn), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(54.44f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fSaturnDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					  * glm::scale(6.08f, 6.08f, 6.08f);
+					  * glm::scale(6.1067f, 6.1067f, 6.1067f);
 	m_pMeshMngr->SetModelMatrix(m4Saturn, "Saturn");
 
-	
-	//m4Uranus = glm::rotate(m4Uranus, fUranusDayPercent, vector3(0.0f, 1.0f, 0.0f));
-	m4Uranus = glm::rotate(matrix4(IDENTITY), -9.0f*(fTotalTime + randStartUranus), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(50.0f, 0.0f, 0.0f)
+
+	m4Uranus = glm::rotate(matrix4(IDENTITY), -0.2378592f*(fTotalTime + randStartUranus), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(65.0f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fUranusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f)) 
-					  * glm::scale(3.0f, 3.0f, 3.0f);
+					  * glm::scale(2.4618f, 2.4618f, 2.4618f);
 	m_pMeshMngr->SetModelMatrix(m4Uranus, "Uranus");
 
 
-	//m4Neptune = glm::rotate(m4Neptune, fNeptuneDayPercent, vector3(0.0f, 1.0f, 0.0f));
-	m4Neptune = glm::rotate(matrix4(IDENTITY), -6.0f*(fTotalTime + randStartNeptune), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(60.0f, 0.0f, 0.0f)
+	m4Neptune = glm::rotate(matrix4(IDENTITY), -0.1212734f*(fTotalTime + randStartNeptune), vector3(0.0, 0.0f, 1.0f)) 
+				* glm::translate(71.0f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fNeptuneDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
-					  * glm::scale(2.91f, 2.91f, 2.91f);
+					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
-
-	//Do we need Pluto?
-	/*m4Pluto = glm::rotate(matrix4(IDENTITY), -3.0f*(fTotalTime + randStartPluto), vector3(0.0, 0.0f, 1.0f)) 
-				* glm::translate(27.0f, 0.0f, 0.0f)
-					* glm::rotate(matrix4(IDENTITY), fPlutoDayPercent * 360, vector3(0.0f, 1.0f, 0.0f));
-	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");*/
 
 	//push planets into octree
 	/*for(int i = 0; i < baby->m_lBoundingObject.size; i++)
