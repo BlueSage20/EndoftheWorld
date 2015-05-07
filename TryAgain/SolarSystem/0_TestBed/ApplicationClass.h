@@ -49,6 +49,8 @@ class ApplicationClass
 	GridClass* m_pGrid; // Grid that represents the Coordinate System
 	CameraSingleton* m_pCamera; // Singleton for the camera that represents our scene
 	vector4 m_v4ClearColor;//Color of the scene
+
+	std::vector <BoundingObjectClass*>planets;
 	
 public:
 	/*

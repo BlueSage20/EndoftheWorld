@@ -1,4 +1,5 @@
 #include "ApplicationClass.h"
+#include "bigTree.h"
 
 //OCTREE NOTES
 //Look at the OctantClass.h and OctreeSingleton.h files. They have all methods needed
@@ -73,6 +74,14 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\07_Uranus.obj", "Uranus");
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
 	//Is this where we call the Octree's "Render" method?
+
+	int instances = m_pMeshMngr->GetNumberOfInstances();
+
+	for (int i = 0; i < instances; i++){
+		planets.push_back(m_pMeshMngr->GetBoundingObject(i));
+	}
+
+	std::cout << planets.size();
 	
 }
 void ApplicationClass::Update (void)
@@ -232,6 +241,8 @@ void ApplicationClass::Update (void)
 	}*/
 	//octree->GenerateOctree(baby->m_lBoundingObject, 4, 2);
 
+	bigTree *octree = new bigTree(m_pMeshMngr, planets);
+	
 	//First person camera movement
 	if(m_bFPC == true)
 		CameraRotation();
