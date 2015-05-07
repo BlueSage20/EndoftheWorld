@@ -1,4 +1,5 @@
 #include "ApplicationClass.h"
+#include <iostream>
 void ApplicationClass::ProcessKeyboard(void)
 {
 	bool bModifier = false;
@@ -156,10 +157,10 @@ void ApplicationClass::ProcessMouse(void)
 	}
 	else
 	{
-		/*
+		
 		if(bLeft_Released == true)
 		{
-			m_pMeshMngr->SetVisibleBoundingObject(false);
+			/*m_pMeshMngr->SetVisibleBoundingObject(false);
 			vector2 v2Object = m_pMeshMngr->m_pModelMngr->ShootRay(
 														sf::Mouse::getPosition().x,
 														sf::Mouse::getPosition().y,
@@ -173,9 +174,18 @@ void ApplicationClass::ProcessMouse(void)
 				m_sSelectedObject = sInstance;
 				m_m4SelectedObject = m_pMeshMngr->GetModelMatrix(m_sSelectedObject);
 				m_pMeshMngr->SetVisibleBoundingObjectHierarchy(true, m_sSelectedObject);
-			}
+			}*/
+			
+			//matrix4 assteroid = m_pMeshMngr->GetModelMatrix("Pluto");
+			//assteroid
+			//vector3 asteroidPos = m_pMeshMngr->
+			//take camera matrix
+				//go forth in the Z
+
+			std::cout << "Output matrix: " << m_sSelectedObject << std::endl;
+			m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
 		}
-		*/
+		
 		bLeft_Released = false;
 	}
 }
