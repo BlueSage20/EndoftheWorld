@@ -103,11 +103,11 @@ void ApplicationClass::Update (void)
 		CameraRotation();
 	
 	//First Person Camera Movement
-	if(m_bArcBall == true)
+	/*if(m_bArcBall == true)
 	{
 		ArcBall();
 		m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject); //Setting up the Model Matrix
-	}
+	}*/
 
 	//Static so it holds its value each call
 	static float fEarthYear = 0.0f;
@@ -245,9 +245,10 @@ void ApplicationClass::Update (void)
 					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
 
-	m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject);
+	
+	//m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject);
 	//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
-	m_pMeshMngr->AddAxisToQueue(m4AsteroidTrans * m4AsteroidOrient * glm::scale(vector3(3.0f)));
+	//m_pMeshMngr->AddAxisToQueue(m4AsteroidTrans * m4AsteroidOrient * glm::scale(vector3(3.0f)));
 
 	//push planets into octree
 	/*for(int i = 0; i < baby->m_lBoundingObject.size; i++)

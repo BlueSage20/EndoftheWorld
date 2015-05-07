@@ -1,4 +1,5 @@
 #include "ApplicationClass.h"
+//#include "Application.cpp"
 #include <iostream>
 void ApplicationClass::ProcessKeyboard(void)
 {
@@ -183,7 +184,8 @@ void ApplicationClass::ProcessMouse(void)
 				//go forth in the Z
 
 			std::cout << "Output matrix: " << m_sSelectedObject << std::endl;
-			m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
+			//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
+			//m4_prisonBitch = m_pCamera->m_m4View;
 		}
 		
 		bLeft_Released = false;
