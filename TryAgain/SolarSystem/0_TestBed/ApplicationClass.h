@@ -7,6 +7,7 @@ Date: 2014/10
 #pragma warning(disable:4251)
 
 #include "ME\MyEngine.h"
+#include "bigTree.h"
 #include <SFML\Graphics.hpp>
 #include <chrono>
 
@@ -35,6 +36,8 @@ class ApplicationClass
 	matrix4 m4Pluto;
 
 	matrix4 m4Asteroid;
+	matrix4 m4AsteroidTrans;
+	matrix4 m4AsteroidOrient;
 
 	//Standard variables
 	static ApplicationClass* m_pInstance; // Singleton for this class
@@ -49,6 +52,8 @@ class ApplicationClass
 	GridClass* m_pGrid; // Grid that represents the Coordinate System
 	CameraSingleton* m_pCamera; // Singleton for the camera that represents our scene
 	vector4 m_v4ClearColor;//Color of the scene
+
+	std::vector <BoundingObjectClass*>planets;
 	
 public:
 	/*

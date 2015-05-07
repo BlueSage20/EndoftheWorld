@@ -15,6 +15,19 @@ public:
 	int maxObjects; //Maximum number of objects per octant
 	Octants* rootNode; //Root of the Tree. Stores all the vertices of the world. We want to subdivide this node into 8 parts.
 	static bigTree* pointer; //Singleton pointer
+	vector3 centroid;
+	vector3 octLWH;
+
+	/* Constructor */
+	bigTree(void);
+	/* Copy Constructor */
+	bigTree(bigTree const& other);
+	/* Copy Assignment Operator */
+	bigTree& operator=(bigTree const& other);
+	/* Destructor */
+	~bigTree(void);
+
+	bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
 
 /// FUNCTION DECLARATION
 	// Gets instance of our tree
@@ -26,25 +39,18 @@ public:
 	Octants* GetOctant(int octantID);
 
 	//This is the method that will build the octree. Can we pass the root node into it?
-	void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2);
+	//void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2);
+
+	
+	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bObj);
 
 	//actually render the tree
-	void Render(void);
+	void Render(MeshManagerSingleton* m_pMeshMngr);
 
 private:
-	/* Constructor */
-	bigTree(void);
-	/* Copy Constructor */
-	bigTree(bigTree const& other);
-	/* Copy Assignment Operator */
-	bigTree& operator=(bigTree const& other);
-	/* Destructor */
-	~bigTree(void);
-
-
 /// FUNCTION DECLARATION
 	/* Releases the objects memory */
 	void Release(void);
