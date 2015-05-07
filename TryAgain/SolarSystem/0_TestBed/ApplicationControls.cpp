@@ -185,6 +185,7 @@ void ApplicationClass::ProcessMouse(void)
 
 			std::cout << "Output matrix: " << m_sSelectedObject << std::endl;
 			//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
+			//m_m4SelectedObject = m_pCamera->GetProjection(); //BROKEN WHY
 			//m4_prisonBitch = m_pCamera->m_m4View;
 		}
 		
