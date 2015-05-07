@@ -75,6 +75,10 @@ void ApplicationClass::InitUserAppVariables()
 	m_pMeshMngr->LoadModelUnthreaded("Planets\\08_Neptune.obj", "Neptune");
 	//Is this where we call the Octree's "Render" method?
 
+	//stand-in comet
+	m_pMeshMngr->LoadModelUnthreaded("Planets\\09_Pluto.obj", "Pluto");
+	m_sSelectedObject = "Pluto";
+
 	int instances = m_pMeshMngr->GetNumberOfInstances();
 
 	for (int i = 0; i < instances; i++){
@@ -93,6 +97,17 @@ void ApplicationClass::Update (void)
 	static float fTotalTime = 0.0f;
 	float fLapDifference = m_pSystem->StopClock();
 	fTotalTime += fLapDifference;
+
+	//Do this first
+	if(m_bFPC == true)
+		CameraRotation();
+	
+	//First Person Camera Movement
+	if(m_bArcBall == true)
+	{
+		ArcBall();
+		m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject); //Setting up the Model Matrix
+	}
 
 	//Static so it holds its value each call
 	static float fEarthYear = 0.0f;
@@ -230,6 +245,10 @@ void ApplicationClass::Update (void)
 					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
 
+	m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject);
+	//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
+	m_pMeshMngr->AddAxisToQueue(m4AsteroidTrans * m4AsteroidOrient * glm::scale(vector3(3.0f)));
+
 	//push planets into octree
 	/*for(int i = 0; i < baby->m_lBoundingObject.size; i++)
 	{
@@ -244,14 +263,14 @@ void ApplicationClass::Update (void)
 	bigTree *octree = new bigTree(m_pMeshMngr, planets);
 	
 	//First person camera movement
-	if(m_bFPC == true)
+	/*if(m_bFPC == true)
 		CameraRotation();
 
 	if(m_bArcBall == true)
 	{
 		ArcBall();
 		//m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject); //Setting up the Model Matrix
-	}
+	}*/
 
 	printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
 }
