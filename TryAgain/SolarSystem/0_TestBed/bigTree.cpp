@@ -124,8 +124,36 @@ void bigTree::TraverseInfo(Octants* node)
 void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 {}
 
-/*void bigTree::Subdivide(Octants* node, bool resetCount = false)
-{}*/
+void bigTree::Subdivide(Octants* node, bool resetCount = false)
+{
+   //int* howManyKids = node->children.size();
+	
+   for(int i=0; i < node->children.length(); i++)
+   {
+        /*AABB aabb;
+	aabb.minBB.z = minBB.z;
+	aabb.maxBB.z = avgBB.z;
+	aabb.minBB.y = minBB.y;
+	aabb.maxBB.y = avgBB.y;
+	aabb.minBB.x = minBB.x;
+	aabb.maxBB.x = avgBB.x;
+ 
+	if(i & 4){ // greater z
+		aabb.minBB.z = avgBB.z;
+		aabb.maxBB.z = maxBB.z;	
+	}
+	if(i & 2){ // greater y
+		aabb.minBB.y = avgBB.y;
+		aabb.maxBB.y = maxBB.y;
+	}
+	if(i & 1){ // greater x
+		aabb.minBB.x = avgBB.x;
+		aabb.maxBB.x = maxBB.x;
+	}*/
+
+	   BoundingObjectClass* aabb = node->octBO;
+   }
+}
 
 void bigTree::DeleteNode(Octants*& node)
 {}

@@ -250,28 +250,12 @@ void ApplicationClass::Update (void)
 	//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
 	//m_pMeshMngr->AddAxisToQueue(m4AsteroidTrans * m4AsteroidOrient * glm::scale(vector3(3.0f)));
 
-	//push planets into octree
-	/*for(int i = 0; i < baby->m_lBoundingObject.size; i++)
-	{
-		//Do stuff
-		baby->m_lBoundingObject[0] = m_pMeshMngr->LoadModelUnthreaded("Planets\\03_Earth.obj", "Earth");
-
-		//At the end, set IsEmpty to "false". I guess I can't access baby->m_bEmpty
-
-	}*/
-	//octree->GenerateOctree(baby->m_lBoundingObject, 4, 2);
-
+	//Push planets into octree
 	bigTree *octree = new bigTree(m_pMeshMngr, planets);
-	
-	//First person camera movement
-	/*if(m_bFPC == true)
-		CameraRotation();
 
-	if(m_bArcBall == true)
-	{
-		ArcBall();
-		//m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject); //Setting up the Model Matrix
-	}*/
+	//Subdivide the octree
+	//octree.Subdivide(Octants* node, bool resetCount = false);
+	
 
 	printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
 }
