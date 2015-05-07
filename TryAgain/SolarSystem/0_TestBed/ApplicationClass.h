@@ -35,6 +35,8 @@ class ApplicationClass
 	matrix4 m4Pluto;
 
 	matrix4 m4Asteroid;
+	matrix4 m4AsteroidTrans;
+	matrix4 m4AsteroidOrient;
 
 	//Standard variables
 	static ApplicationClass* m_pInstance; // Singleton for this class

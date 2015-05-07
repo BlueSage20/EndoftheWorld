@@ -19,9 +19,9 @@ class MyEngineDLL CameraSingleton
 	static CameraSingleton* m_pInstance;//Singleton
 	SystemSingleton* m_pSystem; //System pointer
 
-	matrix4 m_m4Projection; //Projection
+	/*matrix4 m_m4Projection; //Projection
 	matrix4 m_m4View; //View
-	matrix4 m_m4MVP; //MVP
+	matrix4 m_m4MVP; //MVP*/
 
 	vector3 m_v4Position; //CameraPosition
 	vector3 m_v3Forward; //Camera view vector
@@ -29,6 +29,10 @@ class MyEngineDLL CameraSingleton
 
 	
 public:
+	matrix4 m_m4Projection; //Projection
+	matrix4 m_m4View; //View
+	matrix4 m_m4MVP; //MVP
+	
 	/* Gets/Constructs the singleton pointer */
 	static CameraSingleton* GetInstance();
 	/* Destroys the singleton */
