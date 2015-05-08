@@ -344,11 +344,11 @@ void bigTree::TraverseInfo(Octants* node)
 void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 {}
 
-//void bigTree::Subdivide(Octants* node, bool resetCount = false)
-//{
+void bigTree::Subdivide(Octants* node, bool resetCount = false)
+{
    //int* howManyKids = node->children.size();
 	
-   /*for(int i=0; i < node->children.length(); i++)
+   for(int i=0; i < node->children.length(); i++)
    {
         /*AABB aabb;
 	aabb.minBB.z = minBB.z;
@@ -369,11 +369,13 @@ void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 	if(i & 1){ // greater x
 		aabb.minBB.x = avgBB.x;
 		aabb.maxBB.x = maxBB.x;
-	}
-}*/
+	}*/
+	   BoundingObjectClass* aabb = node->octBO;
+	   aabb->m_v3MinAABBG.z = 
 
-	   //BoundingObjectClass* aabb = node->octBO;
-//}
+  }
+
+}
 
 
 
