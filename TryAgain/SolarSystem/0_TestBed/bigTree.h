@@ -50,6 +50,9 @@ public:
 	//actually render the tree
 	void Render(MeshManagerSingleton* m_pMeshMngr);
 
+	//Subdivide
+	void Subdivide(Octants* node, bool resetCount);
+
 private:
 /// FUNCTION DECLARATION
 	/* Releases the objects memory */
@@ -70,7 +73,7 @@ private:
 	void TraverseGet(Octants* node, Octants*& output, int octoID);
 
 	/* Generates the 8 octant nodes for the specified Node with a maximum level of subdivisions and max objects per node */
-	void Subdivide(Octants* node, bool resetCount = false);
+	//void Subdivide(Octants* node, bool resetCount = false);
 
 	/* Deletes the specidied node and subtrees */
 	void DeleteNode(Octants*& node);

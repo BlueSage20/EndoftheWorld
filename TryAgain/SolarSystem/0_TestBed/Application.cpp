@@ -251,10 +251,11 @@ void ApplicationClass::Update (void)
 	//m_pMeshMngr->AddAxisToQueue(m4AsteroidTrans * m4AsteroidOrient * glm::scale(vector3(3.0f)));
 
 	//Push planets into octree
+	Octants *oo = new Octants();
 	bigTree *octree = new bigTree(m_pMeshMngr, planets);
 
 	//Subdivide the octree
-	//octree.Subdivide(Octants* node, bool resetCount = false);
+    //octree->Subdivide(oo, false);
 	
 
 	printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	

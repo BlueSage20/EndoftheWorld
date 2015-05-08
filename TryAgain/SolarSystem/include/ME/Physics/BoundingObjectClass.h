@@ -24,8 +24,8 @@ class MyEngineDLL BoundingObjectClass
 	vector3 m_v3ColorOBB;	//Color of the Oriented Bounding Box
 	vector3 m_v3ColorBS;	//Color of the Bounding Sphere
 	vector3 m_v3CentroidL;	//Centroid of the BO in local space
-	vector3 m_v3MaxAABBG;	//Max of the AABB in global space
-	vector3 m_v3MinAABBG;	//Min of the AABB in global space
+	//vector3 m_v3MaxAABBG;	//Max of the AABB in global space
+	//vector3 m_v3MinAABBG;	//Min of the AABB in global space
 	vector3 m_v3HalfWidth;	//half the( width(x) , height(y), depth(z) )of the box
 
 	matrix4 m_m4ToWorld;	//Model matrix of the box
@@ -36,6 +36,8 @@ class MyEngineDLL BoundingObjectClass
 	std::vector<int> m_lOctant; //List of octants
 
 public:
+	vector3 m_v3MaxAABBG;	//Max of the AABB in global space
+	vector3 m_v3MinAABBG;
 	/* Constructor 	*/
 	BoundingObjectClass(std::vector<vector3> a_lVertex, matrix4 a_m4ToWorld, String a_sInstanceName);
 	/* Constructor 	*/

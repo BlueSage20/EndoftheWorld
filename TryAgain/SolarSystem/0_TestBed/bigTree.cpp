@@ -344,34 +344,67 @@ void bigTree::TraverseInfo(Octants* node)
 void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 {}
 
-void bigTree::Subdivide(Octants* node, bool resetCount = false)
+void bigTree::Subdivide(Octants* node, bool resetCount)
 {
    //int* howManyKids = node->children.size();
 	
-   for(int i=0; i < node->children.length(); i++)
+	for(int i=0; i < 8; i++)
    {
-        /*AABB aabb;
-	aabb.minBB.z = minBB.z;
-	aabb.maxBB.z = avgBB.z;
-	aabb.minBB.y = minBB.y;
-	aabb.maxBB.y = avgBB.y;
-	aabb.minBB.x = minBB.x;
-	aabb.maxBB.x = avgBB.x;
+    if(node->isLeaf){
+	vector3 minBB;
+	vector3 maxBB;
+	vector3 avgBB;
+
+	minBB = node->objectsInside[0]->GetCentroidGlobal() - node->objectsInside[0]->GetHalfWidth();
+	maxBB = node->objectsInside[0]->GetCentroidGlobal() + node->objectsInside[0]->GetHalfWidth();
+	avgBB = (minBB + maxBB)/2.0f;
+	   
+	//AABB aabb;
+	//aabb.minBB.z = minBB.z;
+	//aabb.maxBB.z = avgBB.z;
+	//aabb.minBB.y = minBB.y;
+	//aabb.maxBB.y = avgBB.y;
+	//aabb.minBB.x = minBB.x;
+	//aabb.maxBB.x = avgBB.x;
+	BoundingObjectClass* aabb = node->octBO;
+	aabb->m_v3MinAABBG.z = minBB.z;
+	aabb->m_v3MaxAABBG.z = avgBB.z;
+	aabb->m_v3MinAABBG.y = minBB.y;
+	aabb->m_v3MaxAABBG.y = avgBB.y;
+	aabb->m_v3MinAABBG.x = minBB.x;
+	aabb->m_v3MaxAABBG.x = avgBB.x;
  
+	//if(i & 4){ // greater z
+		//aabb.minBB.z = avgBB.z;
+		//aabb.maxBB.z = maxBB.z;	
+	//}
+	//if(i & 2){ // greater y
+		//aabb.minBB.y = avgBB.y;
+		//aabb.maxBB.y = maxBB.y;
+	//}
+	//if(i & 1){ // greater x
+		//aabb.minBB.x = avgBB.x;
+		//aabb.maxBB.x = maxBB.x;
+	//}
 	if(i & 4){ // greater z
-		aabb.minBB.z = avgBB.z;
-		aabb.maxBB.z = maxBB.z;	
+		aabb->m_v3MinAABBG.z = avgBB.z;
+		aabb->m_v3MaxAABBG.z = maxBB.z;	
 	}
 	if(i & 2){ // greater y
-		aabb.minBB.y = avgBB.y;
-		aabb.maxBB.y = maxBB.y;
+		aabb->m_v3MinAABBG.y = avgBB.y;
+		aabb->m_v3MaxAABBG.y = maxBB.y;	
 	}
 	if(i & 1){ // greater x
-		aabb.minBB.x = avgBB.x;
-		aabb.maxBB.x = maxBB.x;
-	}*/
-	   BoundingObjectClass* aabb = node->octBO;
-	   aabb->m_v3MinAABBG.z = 
+		aabb->m_v3MinAABBG.x = avgBB.x;
+		aabb->m_v3MaxAABBG.x = maxBB.x;	
+	}
+
+	//node->hasChild = true;
+	//node->treeLevel++
+	node->Render(); //render
+	//what do we do with resetCount?
+	   
+	}
 
   }
 
