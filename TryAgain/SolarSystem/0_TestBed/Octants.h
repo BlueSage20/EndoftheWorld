@@ -26,7 +26,7 @@ public:
 	vector3 octCentroid; //
 
 	std::vector<BoundingObjectClass*> objectsInside; // dynamically shifts; holds the BO currently inside the octant
-	Octants* children[8]; // always 0 or 8 subdivisions
+	Octants* children[8]; // always 0 or 8 subdivisions. True tree creates as many children as it needs
 	BoundingObjectClass* octBO; // a bounding object of the (current?) octant; needed for rendering + collision (containment) tests
 
 /// CONSTRUCTORS

@@ -262,54 +262,7 @@ void bigTree::createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bounding
 		octLWH.z = glm::distance(vector3(minPos.z, 0, 0), vector3(maxPos.z, 0, 0));
 	}
 
-	//
-	for(int i = 0; i < objectsList.size(); i++){
-		//Sun
-		std::cout << objectsList[0]->GetInstanceName();
-		std::cout << objectsList[0]->GetHalfWidth().x;
-		std::cout << objectsList[0]->GetHalfWidth().y;
-		std::cout << objectsList[0]->GetHalfWidth().z << std::endl;
-		//Mercury
-		std::cout << objectsList[1]->GetInstanceName();
-		std::cout << objectsList[1]->GetHalfWidth().x;
-		std::cout << objectsList[1]->GetHalfWidth().y;
-		std::cout << objectsList[1]->GetHalfWidth().z << std::endl;
-		//Venus
-		std::cout << objectsList[2]->GetInstanceName();
-		std::cout << objectsList[2]->GetHalfWidth().x;
-		std::cout << objectsList[2]->GetHalfWidth().y;
-		std::cout << objectsList[2]->GetHalfWidth().z << std::endl;
-		//Earth
-		std::cout << objectsList[3]->GetInstanceName();
-		std::cout << objectsList[3]->GetHalfWidth().x;
-		std::cout << objectsList[3]->GetHalfWidth().y;
-		std::cout << objectsList[3]->GetHalfWidth().z << std::endl;
-		//Mars
-		std::cout << objectsList[4]->GetInstanceName();
-		std::cout << objectsList[4]->GetHalfWidth().x;
-		std::cout << objectsList[4]->GetHalfWidth().y;
-		std::cout << objectsList[4]->GetHalfWidth().z << std::endl;
-		//Jupiter
-		std::cout << objectsList[5]->GetInstanceName();
-		std::cout << objectsList[5]->GetHalfWidth().x;
-		std::cout << objectsList[5]->GetHalfWidth().y;
-		std::cout << objectsList[5]->GetHalfWidth().z << std::endl;
-		//Saturn
-		std::cout << objectsList[6]->GetInstanceName();
-		std::cout << objectsList[6]->GetHalfWidth().x;
-		std::cout << objectsList[6]->GetHalfWidth().y;
-		std::cout << objectsList[6]->GetHalfWidth().z << std::endl;
-		//Uranus
-		std::cout << objectsList[7]->GetInstanceName();
-		std::cout << objectsList[7]->GetHalfWidth().x;
-		std::cout << objectsList[7]->GetHalfWidth().y;
-		std::cout << objectsList[7]->GetHalfWidth().z << std::endl;
-		//Neptune
-		std::cout << objectsList[8]->GetInstanceName();
-		std::cout << objectsList[8]->GetHalfWidth().x;
-		std::cout << objectsList[8]->GetHalfWidth().y;
-		std::cout << objectsList[8]->GetHalfWidth().z << std::endl;
-	}
+	
 }
 
 void bigTree::Render(MeshManagerSingleton* m_pMeshMngr)
