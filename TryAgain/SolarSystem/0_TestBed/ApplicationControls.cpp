@@ -185,8 +185,24 @@ void ApplicationClass::ProcessMouse(void)
 
 			std::cout << "Output matrix: " << m_sSelectedObject << std::endl;
 			//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
-			//m_m4SelectedObject = m_pCamera->GetProjection(); //BROKEN WHY
-			//m4_prisonBitch = m_pCamera->m_m4View;
+
+			//matrix4 m_m4CameraPosition = m_pCamera->GetPosition(); //math here
+			
+			//invert camera position & view
+			matrix4 m_m4inverseView =  glm::inverse(m_pCamera->GetView());
+			vector4 inverseCamPos;
+			inverseCamPos.x = -m_pCamera->GetPosition().x;
+			inverseCamPos.y = -m_pCamera->GetPosition().y;
+			inverseCamPos.z = -m_pCamera->GetPosition().z;
+			inverseCamPos.w = 0;
+
+			//Result of the two
+			glm::vec4 result = m_m4inverseView * inverseCamPos;
+
+			//This class can access Pluto's matrix
+			//So what matrix are we going to give to it?
+
+			//m_m4SelectedObject = m_m4CameraPosition;
 		}
 		
 		bLeft_Released = false;
