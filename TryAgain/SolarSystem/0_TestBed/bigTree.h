@@ -27,7 +27,7 @@ public:
 	/* Destructor */
 	~bigTree(void);
 
-	bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
+	bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
 
 /// FUNCTION DECLARATION
 	// Gets instance of our tree
@@ -42,7 +42,7 @@ public:
 	//void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2);
 
 	
-	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
+	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bObj);

@@ -54,6 +54,7 @@ class ApplicationClass
 	vector4 m_v4ClearColor;//Color of the scene
 
 	std::vector <BoundingObjectClass*>planets;
+	std::vector<float> objectSizes;
 	
 public:
 	/*

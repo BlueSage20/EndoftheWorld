@@ -31,7 +31,7 @@ float randStartUranus;
 float randStartNeptune;
 
 void ApplicationClass::InitUserAppVariables()
-{
+{	
 	randStartMercury = (float)rand();
 	randStartVenus = (float)rand();
 	randStartEarth = (float)rand();
@@ -85,8 +85,16 @@ void ApplicationClass::InitUserAppVariables()
 		planets.push_back(m_pMeshMngr->GetBoundingObject(i));
 	}
 
-	std::cout << planets.size();
-	
+	objectSizes.push_back(15.0f);
+	objectSizes.push_back(0.2552f);
+	objectSizes.push_back(0.6349f);
+	objectSizes.push_back(0.6682f);
+	objectSizes.push_back(0.3545f);
+	objectSizes.push_back(7.4989f);
+	objectSizes.push_back(6.1067f);
+	objectSizes.push_back(2.4618f);
+	objectSizes.push_back(2.3827f);
+	objectSizes.push_back(1.0f);
 }
 void ApplicationClass::Update (void)
 {
@@ -252,7 +260,7 @@ void ApplicationClass::Update (void)
 
 	//Push planets into octree
 	Octants *oo = new Octants();
-	bigTree *octree = new bigTree(m_pMeshMngr, planets);
+	bigTree *octree = new bigTree(m_pMeshMngr, planets, objectSizes);
 
 	//Subdivide the octree
     //octree->Subdivide(oo, false);
