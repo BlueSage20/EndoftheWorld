@@ -347,10 +347,11 @@ void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 void bigTree::Subdivide(Octants* node, bool resetCount)
 {
    //int* howManyKids = node->children.size();
+	//Onode->children->size();
 	
 	for(int i=0; i < 8; i++)
    {
-    if(node->isLeaf){
+    if(node->isLeaf && node->children != NULL){
 	vector3 minBB;
 	vector3 maxBB;
 	vector3 avgBB;
