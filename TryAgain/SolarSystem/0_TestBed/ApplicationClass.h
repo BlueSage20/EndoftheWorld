@@ -17,6 +17,7 @@ class ApplicationClass
 {
 	bool m_bFPC;// First Person Camera flag
 	bool m_bArcBall;// Arcball flag
+	bool didIClick;
 
 	String m_sSelectedObject;//Selected Object
 	matrix4 m_m4SelectedObject;//Creeper Model Matrix

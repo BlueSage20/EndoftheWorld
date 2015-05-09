@@ -276,6 +276,22 @@ void ApplicationClass::Update (void)
 					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
 #pragma endregion
+
+	if(didIClick == true)
+	{
+		//printThing = true;
+		m_m4SelectedObject = glm::translate(0.0f, 0.0f, -0.2f) * m_m4SelectedObject;
+		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
+		//std::cout << didIClick << std::endl;
+		//std::cout << "Moving" << std::endl;]
+		
+	}
+
+	//if(printThing == true)
+	//{
+		//std::cout << glm::to_string(m_m4SelectedObject) << std::endl;
+		//system("PAUSE");
+	//}
 	
 	//m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject);
 	//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
