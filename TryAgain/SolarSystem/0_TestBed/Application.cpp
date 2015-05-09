@@ -96,6 +96,26 @@ void ApplicationClass::InitUserAppVariables()
 	objectSizes.push_back(2.3827f);
 	objectSizes.push_back(1.0f);
 }
+
+//std::vector<BoundingObjectClass*> objList
+//list<BoundingObjectClass*> objList
+//BoundingObjectClass** objArr
+
+// Takes in a reference to a list of objects withing an octantaa
+void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
+{
+	bool collision = false;
+
+	// loop through the array of objects
+	for( int i = 0; i < objects.size() - 1; i++)
+	{
+		// i against i+1, making sure i+1 is never greater than size
+		collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
+		if(collision) { /* pluto boolean set to true*/ }
+	}
+
+}
+
 void ApplicationClass::Update (void)
 {
 	m_pSystem->UpdateTime(); //Update the system
@@ -193,66 +213,69 @@ void ApplicationClass::Update (void)
 	uranus - 2.4618
 	neptune - 2.3827 */
 	
+
+#pragma region
+	// 0 - SUN
 	m4Sun = glm::rotate(matrix4(IDENTITY), fSunDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					 * glm::scale(15.0f, 15.0f, 15.0f);
 	m_pMeshMngr->SetModelMatrix(m4Sun, "Sun");
 
-
+	// 1 - MERCURY
 	m4Mercury = glm::rotate(matrix4(IDENTITY), -80.0f*(fTotalTime+randStartMercury), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(18.6f, 0.0f, 0.0f) 
 					* glm::rotate(matrix4(IDENTITY), fMercuryDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					  * glm::scale(0.2552f, 0.2552f, 0.2552f);
 	m_pMeshMngr->SetModelMatrix(m4Mercury, "Mercury");
 
-
+	// 2 - VENUS
 	m4Venus = glm::rotate(matrix4(IDENTITY), -34.2857144f*(fTotalTime + randStartVenus), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(21.7f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fVenusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					   * glm::scale(0.6349f, 0.6349f, 0.6349f);
 	m_pMeshMngr->SetModelMatrix(m4Venus, "Venus");
 
-
+	// 3 - EARTH
 	m4Earth = glm::rotate(matrix4(IDENTITY), -20.0f*(fTotalTime + randStartEarth), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(25.3f, 0.0f, 0.0f) 
 					*  glm::rotate(matrix4(IDENTITY), fEarthDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					    * glm::scale(0.6682f, 0.6682f, 0.6682f);
 	m_pMeshMngr->SetModelMatrix(m4Earth, "Earth");
 	
-
+	// 4 - MARS
 	m4Mars = glm::rotate(matrix4(IDENTITY), -10.4347826f*(fTotalTime + randStartMars), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(28.6f, 0.0f, 0.0f) 
 					* glm::rotate(matrix4(IDENTITY), fMarsDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					  * glm::scale(0.3545f, 0.3545f, 0.3545f);
 	m_pMeshMngr->SetModelMatrix(m4Mars, "Mars");
 
-
+	// 5 - JUPITER
 	m4Jupiter = glm::rotate(matrix4(IDENTITY), -1.6901408f*(fTotalTime + randStartJupiter), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(39.32f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fJupiterDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					 * glm::scale(7.4989f, 7.4989f, 7.4989f);
 	m_pMeshMngr->SetModelMatrix(m4Jupiter, "Jupiter");
 
-
+	// 6 - SATURN
 	m4Saturn = glm::rotate(matrix4(IDENTITY), -0.6779662f*(fTotalTime + randStartSaturn), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(54.44f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fSaturnDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					  * glm::scale(6.1067f, 6.1067f, 6.1067f);
 	m_pMeshMngr->SetModelMatrix(m4Saturn, "Saturn");
 
-
+	// 7 - URANUS
 	m4Uranus = glm::rotate(matrix4(IDENTITY), -0.2378592f*(fTotalTime + randStartUranus), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(65.0f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fUranusDayPercent * 360, vector3(0.0f, 1.0f, 0.0f)) 
 					  * glm::scale(2.4618f, 2.4618f, 2.4618f);
 	m_pMeshMngr->SetModelMatrix(m4Uranus, "Uranus");
 
-
+	// 8 - NEPTUNE
 	m4Neptune = glm::rotate(matrix4(IDENTITY), -0.1212734f*(fTotalTime + randStartNeptune), vector3(0.0, 0.0f, 1.0f)) 
 				* glm::translate(71.0f, 0.0f, 0.0f)
 					* glm::rotate(matrix4(IDENTITY), fNeptuneDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
-
+#pragma endregion
 	
 	//m_pMeshMngr->SetModelMatrix(m4AsteroidTrans * m4AsteroidOrient, m_sSelectedObject);
 	//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
