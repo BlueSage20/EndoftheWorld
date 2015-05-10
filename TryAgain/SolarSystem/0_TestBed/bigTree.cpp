@@ -10,7 +10,26 @@ bigTree::bigTree(void)
 
 bigTree::bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes)
 {
+	isLeaf = false;
+	treeLevel = 0;
+	octID = 0;
+
 	createTree(m_pMeshMngr, objectsList, objectSizes);
+	octBO = new BoundingObjectClass(centroid, octSize);
+	subdivideTree(m_pMeshMngr, objectsList);
+	Render(m_pMeshMngr);
+}
+
+bigTree::bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, int level, int ID, vector3 childCentroid, float childSize)
+{
+	isLeaf = false;
+	treeLevel = level;
+	octID = ID;
+	centroid = childCentroid;
+	octSize = childSize;
+
+	octBO = new BoundingObjectClass(centroid, octSize);
+	subdivideTree(m_pMeshMngr, objectsList);
 	Render(m_pMeshMngr);
 }
 
@@ -74,26 +93,93 @@ void bigTree::createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bounding
 	
 	centroid = (minPos + maxPos) / 2.0f;
 
-	if (octLWH.x < glm::distance(vector3(minPos.x, 0, 0), vector3(maxPos.x, 0, 0))){
-		octLWH.x = glm::distance(vector3(minPos.x, 0, 0), vector3(maxPos.x, 0, 0));
+	if (octSize < glm::distance(vector3(minPos.x, 0, 0), vector3(maxPos.x, 0, 0))){
+		octSize = glm::distance(vector3(minPos.x, 0, 0), vector3(maxPos.x, 0, 0));
 	}
-	if (octLWH.y < glm::distance(vector3(minPos.y, 0, 0), vector3(maxPos.y, 0, 0))){
-		octLWH.y = glm::distance(vector3(minPos.y, 0, 0), vector3(maxPos.y, 0, 0));
+	if (octSize < glm::distance(vector3(minPos.y, 0, 0), vector3(maxPos.y, 0, 0))){
+		octSize = glm::distance(vector3(minPos.y, 0, 0), vector3(maxPos.y, 0, 0));
 	}
-	if (octLWH.z < glm::distance(vector3(minPos.z, 0, 0), vector3(maxPos.z, 0, 0))){
-		octLWH.z = glm::distance(vector3(minPos.z, 0, 0), vector3(maxPos.z, 0, 0));
+	if (octSize < glm::distance(vector3(minPos.z, 0, 0), vector3(maxPos.z, 0, 0))){
+		octSize = glm::distance(vector3(minPos.z, 0, 0), vector3(maxPos.z, 0, 0));
 	}
 	
 }
 
-void bigTree::Render(MeshManagerSingleton* m_pMeshMngr)
+void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList)
 {
-	m_pMeshMngr->AddCubeToQueue(glm::translate(centroid) * glm::scale(vector3(octLWH)), MERED, MERENDER::WIRE);
+	for(int i = 0; i < objectsList.size(); i++){
+		if (objectsList[i]->IsColliding(*octBO))
+		{
+			objectsInside.push_back(objectsList[i]);
+		}
+	}
+
+	if (objectsInside.size() == maxObjects)
+	{
+		isLeaf = true;
+	}
+
+	else if (objectsInside.size() > maxObjects)
+	{
+		if (treeLevel < maxLevels && isLeaf == false)
+		{
+			vector3 childCentroid;
+			float childSize = octSize/4.0f;
+
+			for (int i = 0; i < 8; i++)
+			{
+				childCentroid = centroid;
+				
+				//	  Front
+				//	---------
+				//	| 3 | 2 |
+				//	---------
+				//	| 0 | 1 |
+				//	---------  
+				
+				if(i == 0){
+					childCentroid += vector3(-childSize, -childSize, childSize);
+				}
+				else if(i == 1){
+					childCentroid += vector3(childSize, -childSize, childSize);
+				}
+				else if(i == 2){
+					childCentroid += vector3(childSize, childSize, childSize); 
+				}
+				else if(i == 3){
+					childCentroid += vector3(-childSize, childSize, childSize);
+				}
+
+				//	  Back
+				//	---------
+				//	| 7 | 6 |
+				//	---------
+				//	| 4 | 5 |
+				//	---------	
+				
+				else if(i == 4){
+					childCentroid += vector3(-childSize, -childSize, -childSize);
+				}
+				else if(i == 5){
+					childCentroid += vector3(childSize, -childSize, -childSize);
+				}
+				else if(i == 6){
+					childCentroid += vector3(childSize, childSize, -childSize);
+				}
+				else if(i == 7){
+					childCentroid += vector3(-childSize, childSize, -childSize);
+				}
+
+				children[i] = new bigTree(m_pMeshMngr, objectsInside, treeLevel + 1, octID + i, childCentroid, childSize * 2.0f);
+			}
+		}
+	}
 }
 
-/*void bigTree::InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2)
+void bigTree::Render(MeshManagerSingleton* m_pMeshMngr)
 {
-}*/
+	m_pMeshMngr->AddCubeToQueue(glm::translate(centroid) * glm::scale(vector3(octSize, octSize, octSize)), MERED, MERENDER::WIRE);
+}
 
 void bigTree::updatePosition(BoundingObjectClass* bObj)
 {	
@@ -117,75 +203,6 @@ void bigTree::TraverseInfo(Octants* node)
 
 void bigTree::TraverseGet(Octants* node, Octants*& output, int octoID)
 {}
-
-void bigTree::Subdivide(Octants* node, bool resetCount)
-{
-   //int* howManyKids = node->children.size();
-	//Onode->children->size();
-	
-	for(int i=0; i < 8; i++)
-   {
-    if(node->isLeaf && node->children != NULL){
-	vector3 minBB;
-	vector3 maxBB;
-	vector3 avgBB;
-
-	minBB = node->objectsInside[0]->GetCentroidGlobal() - node->objectsInside[0]->GetHalfWidth();
-	maxBB = node->objectsInside[0]->GetCentroidGlobal() + node->objectsInside[0]->GetHalfWidth();
-	avgBB = (minBB + maxBB)/2.0f;
-	   
-	//AABB aabb;
-	//aabb.minBB.z = minBB.z;
-	//aabb.maxBB.z = avgBB.z;
-	//aabb.minBB.y = minBB.y;
-	//aabb.maxBB.y = avgBB.y;
-	//aabb.minBB.x = minBB.x;
-	//aabb.maxBB.x = avgBB.x;
-	BoundingObjectClass* aabb = node->octBO;
-	aabb->m_v3MinAABBG.z = minBB.z;
-	aabb->m_v3MaxAABBG.z = avgBB.z;
-	aabb->m_v3MinAABBG.y = minBB.y;
-	aabb->m_v3MaxAABBG.y = avgBB.y;
-	aabb->m_v3MinAABBG.x = minBB.x;
-	aabb->m_v3MaxAABBG.x = avgBB.x;
- 
-	//if(i & 4){ // greater z
-		//aabb.minBB.z = avgBB.z;
-		//aabb.maxBB.z = maxBB.z;	
-	//}
-	//if(i & 2){ // greater y
-		//aabb.minBB.y = avgBB.y;
-		//aabb.maxBB.y = maxBB.y;
-	//}
-	//if(i & 1){ // greater x
-		//aabb.minBB.x = avgBB.x;
-		//aabb.maxBB.x = maxBB.x;
-	//}
-	if(i & 4){ // greater z
-		aabb->m_v3MinAABBG.z = avgBB.z;
-		aabb->m_v3MaxAABBG.z = maxBB.z;	
-	}
-	if(i & 2){ // greater y
-		aabb->m_v3MinAABBG.y = avgBB.y;
-		aabb->m_v3MaxAABBG.y = maxBB.y;	
-	}
-	if(i & 1){ // greater x
-		aabb->m_v3MinAABBG.x = avgBB.x;
-		aabb->m_v3MaxAABBG.x = maxBB.x;	
-	}
-
-	//node->hasChild = true;
-	//node->treeLevel++
-	node->Render(); //render
-	//what do we do with resetCount?
-	   
-	}
-
-  }
-
-}
-
-
 
 void bigTree::DeleteNode(Octants*& node)
 {}

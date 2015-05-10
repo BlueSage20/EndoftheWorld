@@ -6,17 +6,24 @@
 
 using namespace MyEngine;
 
+const int maxLevels = 3; //Maximum sublevel of the tree
+const int maxObjects = 1; //Maximum number of objects per octant
+
 /// CLASS
 class bigTree
 {
 public:
 	int octants; //Number of octants in the Tree
-	int maxLevels; //Maximum sublevel of the tree
-	int maxObjects; //Maximum number of objects per octant
 	Octants* rootNode; //Root of the Tree. Stores all the vertices of the world. We want to subdivide this node into 8 parts.
 	static bigTree* pointer; //Singleton pointer
-	vector3 centroid;
-	vector3 octLWH;
+	vector3 centroid; //Center of the Octant in world coordinates
+	bool isLeaf; // checking if THIS current node is a leaf
+	int treeLevel; // keeping track of sublevels
+	int octID; // index lookup for all octant subdivisions (will help determine which asteroid hit what planet)
+	BoundingObjectClass* octBO; // a bounding object of the (current?) octant needed for rendering + collision (containment) tests
+	float octSize; // octant size = octSize^3 we don't care what dimension, just that it makes a cube
+	std::vector<BoundingObjectClass*> objectsInside; // dynamically shifts; holds the BO currently inside the octant
+	bigTree* children[8]; //Children of the octant
 
 	/* Constructor */
 	bigTree(void);
@@ -28,7 +35,8 @@ public:
 	~bigTree(void);
 
 	bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
-
+	bigTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, int level, int ID, vector3 childCentroid, float childSize);
+	
 /// FUNCTION DECLARATION
 	// Gets instance of our tree
 	static bigTree* getInstance();
@@ -39,19 +47,14 @@ public:
 	Octants* GetOctant(int octantID);
 
 	//This is the method that will build the octree. Can we pass the root node into it?
-	//void InitTree(std::vector<BoundingObjectClass*> boundingObject, int maxSublevels = 4, int maxObjects = 2);
-
-	
 	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
+	void subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bObj);
 
 	//actually render the tree
 	void Render(MeshManagerSingleton* m_pMeshMngr);
-
-	//Subdivide
-	void Subdivide(Octants* node, bool resetCount);
 
 private:
 /// FUNCTION DECLARATION

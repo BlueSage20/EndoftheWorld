@@ -110,6 +110,9 @@ void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 	for( int i = 0; i < objects.size() - 1; i++)
 	{
 		// i against i+1, making sure i+1 is never greater than size
+
+		//I don't think this is checking all the collisions...
+		//Can't we use glm::distance to check?
 		collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
 		if(collision) { /* pluto boolean set to true*/ }
 	}
