@@ -104,18 +104,41 @@ void ApplicationClass::InitUserAppVariables()
 // Takes in a reference to a list of objects withing an octantaa
 void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 {
-	bool collision = false;
+	//bool collision = false; //?
+	bool collision = true;
 
 	// loop through the array of objects
 	for( int i = 0; i < objects.size() - 1; i++)
 	{
+		for(int j = i + 1; j < objects.size(); j++){
+		//We need min and maxes to be checked
+		//Accessing matrix of each object in the list and making mins/maxes
+	    vector3 v1Min = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MinAABBG,1));
+        vector3 v1Max = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MaxAABBG,1));
+		
 		// i against i+1, making sure i+1 is never greater than size
+		vector3 v2Min = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MinAABBG,1));
+        vector3 v2Max = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MaxAABBG,1));
 
 		//I don't think this is checking all the collisions...
 		//Can't we use glm::distance to check?
-		collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
-		if(collision) { /* pluto boolean set to true*/ }
+		
+		//collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
+		
+			if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
+				collision = false;
+			else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y)
+				collision = false;
+			else if(v1Max.z < v2Min.z || v1Min.z > v2Max.z)
+				collision = false;
+		
+		if(collision){
+			//m_lColor[i] = m_lColor[j] = MEBLUE; //We make the Boxes blue
+			objects[i]->m_bVisibleAABB = objects[j]->m_bVisibleAABB = true; //First, turn on box visibility
+			objects[i]->m_v3ColorAABB = objects[j]->m_v3ColorAABB = MEBLUE; //Then, we make the Boxes blue
+		}
 	}
+ }
 
 }
 

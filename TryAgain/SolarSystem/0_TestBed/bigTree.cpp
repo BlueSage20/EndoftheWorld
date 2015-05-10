@@ -107,6 +107,10 @@ void bigTree::createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bounding
 
 void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList)
 {
+	//Recursively divides the space in the world
+	//Might as well check for collisions here, too
+	//They only collide if they are in the same box
+
 	for(int i = 0; i < objectsList.size(); i++){
 		if (objectsList[i]->IsColliding(*octBO))
 		{
@@ -126,6 +130,7 @@ void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bound
 			vector3 childCentroid;
 			float childSize = octSize/4.0f;
 
+			//I believe collision calls would be made in here?
 			for (int i = 0; i < 8; i++)
 			{
 				childCentroid = centroid;

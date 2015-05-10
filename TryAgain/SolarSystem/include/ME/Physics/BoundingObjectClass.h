@@ -11,7 +11,7 @@ using namespace MyEngine;
 class MyEngineDLL BoundingObjectClass 
 {
 	bool m_bVisibleOBB;		//Visibility of the Oriented Bounding Box
-	bool m_bVisibleAABB;	//Visibility of the Axis Aligned Bounding Box
+	//bool m_bVisibleAABB;	//Visibility of the Axis Aligned Bounding Box
 	bool m_bVisibleBS;		//Visibility of the Bounding Sphere
 
 	float m_fRadius;		//Radius of the BS
@@ -20,7 +20,7 @@ class MyEngineDLL BoundingObjectClass
 
 	String m_sInstance;		//The name of the instance related to this box
 
-	vector3 m_v3ColorAABB;	//Color of the Axis Aligned Bounding Box
+	//vector3 m_v3ColorAABB;	//Color of the Axis Aligned Bounding Box
 	vector3 m_v3ColorOBB;	//Color of the Oriented Bounding Box
 	vector3 m_v3ColorBS;	//Color of the Bounding Sphere
 	vector3 m_v3CentroidL;	//Centroid of the BO in local space
@@ -28,16 +28,24 @@ class MyEngineDLL BoundingObjectClass
 	//vector3 m_v3MinAABBG;	//Min of the AABB in global space
 	vector3 m_v3HalfWidth;	//half the( width(x) , height(y), depth(z) )of the box
 
-	matrix4 m_m4ToWorld;	//Model matrix of the box
+	/*matrix4 m_m4ToWorld;	//Model matrix of the box
 	matrix4 m_mOBB;			//Oriented Bounding Box Mesh
 	matrix4 m_mAABB;		//Axis Aligned Bounding Box Mesh
-	matrix4 m_mBS;			//Bounding Sphere Mesh
+	matrix4 m_mBS;*/			//Bounding Sphere Mesh
 
 	std::vector<int> m_lOctant; //List of octants
 
 public:
+	vector3 m_v3ColorAABB;	//Color of the Axis Aligned Bounding Box
+	bool m_bVisibleAABB;	//Visibility of the Axis Aligned Bounding Box
+	
 	vector3 m_v3MaxAABBG;	//Max of the AABB in global space
 	vector3 m_v3MinAABBG;
+	matrix4 m_m4ToWorld;	//Model matrix of the box
+	matrix4 m_mOBB;			//Oriented Bounding Box Mesh
+	matrix4 m_mAABB;		//Axis Aligned Bounding Box Mesh
+	matrix4 m_mBS;          //Bounding Sphere Mesh
+
 	/* Constructor 	*/
 	BoundingObjectClass(std::vector<vector3> a_lVertex, matrix4 a_m4ToWorld, String a_sInstanceName);
 	/* Constructor 	*/
