@@ -196,7 +196,23 @@ void ApplicationClass::ProcessMouse(void)
 			matrix4 m_m4camPos = glm::translate(m_pCamera->GetPosition());
 
 			matrix4 m_m4AsteroidTrans = m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * m_pCamera->GetView();
-			//matrix4 m_m4AsteroidTrans =  m_m4camPos * m_pCamera->GetView() * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) *  m_m4inverseView * glm::inverse(m_m4camPos);
+			
+			//Now we test a few combinations:
+			//this one is the same
+			//matrix4 m_m4AsteroidTrans = m_m4inverseView * m_m4camPos * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * glm::inverse(m_m4camPos) * m_pCamera->GetView();
+			
+			//also the same
+			//matrix4 m_m4AsteroidTrans = m_m4inverseView * m_pCamera->GetView() * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * glm::inverse(m_m4camPos);
+			
+			//more of the same, regardless of the position of m_m4inverseView
+			//matrix4 m_m4AsteroidTrans = glm::inverse(m_m4camPos) * m_m4camPos * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4inverseView * m_pCamera->GetView();
+
+			//blah
+			//matrix4 m_m4AsteroidTrans = glm::inverse(m_m4camPos) * m_pCamera->GetView() * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * m_m4inverseView;
+
+			//?
+			//matrix4 m_m4AsteroidTrans = m_m4camPos * m_pCamera->GetView() * m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f));
+			
 			m_m4SelectedObject = m_m4AsteroidTrans;
 			//std::cout << didIClick << std::endl;
 			didIClick = true;
