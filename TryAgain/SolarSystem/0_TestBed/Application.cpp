@@ -95,6 +95,8 @@ void ApplicationClass::InitUserAppVariables()
 	objectSizes.push_back(2.4618f);
 	objectSizes.push_back(2.3827f);
 	objectSizes.push_back(1.0f);
+
+	//PlaySound("Zarathrustra.mp3", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
 }
 
 //std::vector<BoundingObjectClass*> objList
@@ -105,7 +107,6 @@ void ApplicationClass::InitUserAppVariables()
 void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 {
 	//bool collision = false; //?
-	bool collision = true;
 
 	// loop through the array of objects
 	for( int i = 0; i < objects.size() - 1; i++)
@@ -115,17 +116,23 @@ void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 		//Accessing matrix of each object in the list and making mins/maxes
 	    vector3 v1Min = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MinAABBG,1));
         vector3 v1Max = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MaxAABBG,1));
-		
 		// i against i+1, making sure i+1 is never greater than size
 		vector3 v2Min = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MinAABBG,1));
         vector3 v2Max = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MaxAABBG,1));
+
+	    //vector3 v1Min = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MinAABBG,1));
+        //vector3 v1Max = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MaxAABBG,1));
+		//
+		//vector3 v2Min = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MinAABBG,1));
+        //vector3 v2Max = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MaxAABBG,1));
 
 		//I don't think this is checking all the collisions...
 		//Can't we use glm::distance to check?
 		
 		//collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
 		
-			if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
+		bool collision = true;	
+		if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
 				collision = false;
 			else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y)
 				collision = false;
@@ -136,7 +143,11 @@ void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 			//m_lColor[i] = m_lColor[j] = MEBLUE; //We make the Boxes blue
 			objects[i]->m_bVisibleAABB = objects[j]->m_bVisibleAABB = true; //First, turn on box visibility
 			objects[i]->m_v3ColorAABB = objects[j]->m_v3ColorAABB = MEBLUE; //Then, we make the Boxes blue
+			//Then just increase pluto's z and have it bounce
 		}
+
+		std::cout << "Colliding?: " << collision << std::endl;
+		std::cout << "Visible?: " << objects[i]->m_bVisibleAABB << std::endl;
 	}
  }
 
@@ -308,6 +319,7 @@ void ApplicationClass::Update (void)
 		//printThing = true;
 		m_m4SelectedObject = glm::translate(0.0f, 0.0f, -0.2f) * m_m4SelectedObject;
 		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
+		PlanetBounce(planets);
 		//std::cout << didIClick << std::endl;
 		//std::cout << "Moving" << std::endl;]
 		
