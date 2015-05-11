@@ -317,7 +317,7 @@ void ApplicationClass::Update (void)
 	if(didIClick == true)
 	{
 		//printThing = true;
-		m_m4SelectedObject = glm::translate(0.0f, 0.0f, -0.2f) * m_m4SelectedObject;
+		m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, -1.0f);
 		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
 		PlanetBounce(planets);
 		//std::cout << didIClick << std::endl;

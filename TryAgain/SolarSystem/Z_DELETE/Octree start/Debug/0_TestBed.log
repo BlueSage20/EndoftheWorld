@@ -1,18 +1,10 @@
-﻿Build started 5/8/2015 10:41:54 PM.
+﻿Build started 5/11/2015 11:57:01 AM.
      1>Project "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\0_TestBed\0_TestBed.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\\" /Fd"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\vc110.pdb" /Gd /TP /wd4251 /analyze- /errorReport:prompt /D _CRT_SECURE_NO_WARNINGS Application.cpp ApplicationClass.cpp ApplicationControls.cpp bigTree.cpp Main.cpp Octants.cpp
-         Octants.cpp
-         Main.cpp
-         bigTree.cpp
-     1>bigTree.cpp(52): warning C4018: '<' : signed/unsigned mismatch
-         ApplicationControls.cpp
-         ApplicationClass.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\\" /Fd"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\vc110.pdb" /Gd /TP /wd4251 /analyze- /errorReport:prompt /D _CRT_SECURE_NO_WARNINGS Application.cpp
          Application.cpp
-     1>Application.cpp(110): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\BTO.res" ..\res\BTO.rc 
+     1>Application.cpp(112): warning C4018: '<' : signed/unsigned mismatch
+     1>Application.cpp(114): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" glew32.lib SOIL.lib opengl32.lib glu32.lib "sfml-system.lib" "sfml-window.lib" MyEngine_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.lib" /MACHINE:X86 "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\BTO.res"
          "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Application.obj"
@@ -21,7 +13,6 @@
          "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\bigTree.obj"
          "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Main.obj"
          "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Octants.obj"
-         LINK : C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe not found or not built by the last incremental link; performing full link
          0_TestBed.vcxproj -> C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe
        PostBuildEvent:
          mkdir “C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\”
@@ -53,4 +44,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:19.43
+Time Elapsed 00:00:02.92

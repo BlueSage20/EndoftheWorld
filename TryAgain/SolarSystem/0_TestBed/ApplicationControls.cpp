@@ -192,10 +192,11 @@ void ApplicationClass::ProcessMouse(void)
 			//invert camera position & view
 			matrix4 m_m4inverseView =  glm::inverse(m_pCamera->GetView());
 
+			
 
 			matrix4 m_m4camPos = glm::translate(m_pCamera->GetPosition());
 
-			matrix4 m_m4AsteroidTrans = m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * m_pCamera->GetView();
+			matrix4 m_m4AsteroidTrans = m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) /*  m_m4camPos * m_pCamera->GetView()*/;
 			
 			//Now we test a few combinations:
 			//this one is the same
