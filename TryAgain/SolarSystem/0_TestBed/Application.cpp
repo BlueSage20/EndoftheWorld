@@ -100,8 +100,12 @@ void ApplicationClass::InitUserAppVariables()
 	objectSizes.push_back(1.0f);
 
 	bouncePluto = false;
+	didIClick = false;
 	movePluto = false;
-
+	int test = (int)didIClick;
+	std::cout << "move: " << test <<std::endl; 
+	//std::cout << "move: " << movePluto <<std::endl; 
+	//std::cout << "bounce: " << bouncePluto <<std::endl;
 	//PlaySound("Zarathrustra.mp3", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
 }
 
@@ -167,13 +171,8 @@ void ApplicationClass::PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 					objects[i]->m_v3ColorBS = objects[9]->m_v3ColorBS = MEBLUE; //Then, we make the Boxes blue
 					//Then just increase pluto's z and have it bounce
 					bouncePluto = true;
-					//std::cout << "Hit" << std::endl;
+					std::cout << "Hit" << std::endl;
 					std::cout << objects[i]->Getname() << std::endl;
-					std::cout << objects[9]->Getname() << std::endl;
-					std::cout << "This is bouncePluto: " << bouncePluto << std::endl;
-					//std::cout << "This is didIClick: " << didIClick << std::endl;
-					//didIClick = false;
-					//std::cout << "This is didIClick: " << didIClick << std::endl;
 					//system("PAUSE");
 				}
 
@@ -348,10 +347,11 @@ void ApplicationClass::Update (void)
 	m4Pluto = m_m4SelectedObject;
 	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");
 
-	PlanetBounce(planets);
+	
 		//printThing = true;
 	if(movePluto)
 	{
+		PlanetBounce(planets);
 		if(bouncePluto)
 		{
 			m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, 1.0f);
@@ -360,6 +360,7 @@ void ApplicationClass::Update (void)
 		{
 			m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, -1.0f);
 		}
+		
 	}
 
 #pragma endregion
@@ -369,7 +370,7 @@ void ApplicationClass::Update (void)
 		bouncePluto = false;
 		movePluto = true;
 		
-		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
+		//m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
 		//PlanetBounce(planets);
 		//std::cout << didIClick << std::endl;
 		//std::cout << "Moving" << std::endl;]
@@ -396,5 +397,10 @@ void ApplicationClass::Update (void)
 	
 
 	//printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
+	m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
+	std::cout << "click: " << didIClick <<std::endl;
+	std::cout << "move: " << movePluto <<std::endl; 
+	std::cout << "bounce: " << bouncePluto <<std::endl;
+
 }
 
