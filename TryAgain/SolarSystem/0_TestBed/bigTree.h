@@ -49,7 +49,7 @@ public:
 	//This is the method that will build the octree. Can we pass the root node into it?
 	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
 	void subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
-	std::vector<BoundingObjectClass*> objectsInsideLeaf();
+	void objectsInsideLeaf(std::vector<BoundingObjectClass*>);
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bObj);

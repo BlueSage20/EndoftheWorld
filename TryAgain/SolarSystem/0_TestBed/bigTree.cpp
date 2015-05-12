@@ -181,10 +181,12 @@ void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bound
 	}
 }
 
-std::vector<BoundingObjectClass*> bigTree::objectsInsideLeaf(){
+void bigTree::objectsInsideLeaf(std::vector<BoundingObjectClass*> planetList)
+{
 	if (isLeaf == true || treeLevel == maxLevels)
 	{
-		return objectsInside;
+		for(int i = 0; i < objectsInside.size();i++)
+		planetList.push_back(objectsInside[i]);
 	}
 }
 

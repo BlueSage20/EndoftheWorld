@@ -114,33 +114,24 @@ void ApplicationClass::InitUserAppVariables()
 //BoundingObjectClass** objArr
 
 // Takes in a reference to a list of objects withing an octantaa
-void ApplicationClass::PlanetBounce(std::vector<BoundingObjectClass*>& objects)
+void ApplicationClass::PlanetBounce(std::vector<BoundingObjectClass*> objects)
 {
 	//bool collision = false; //?
+	//eventually reuse list
 
 	// loop through the array of objects
-	for(std::size_t i = 0; i < objects.size() -1; i++)
+	for(std::size_t i = 0; i < objects.size(); i++)
 	{
-		
+		for(std::size_t j = 0; j < objects.size(); j++){
+			if(objects[j]->Getname() == "Pluto" &&  objects[i]->Getname() != "Pluto")
+			{
 				//We need min and maxes to be checked
 				//Accessing matrix of each object in the list and making mins/maxes
 				vector3 v1Min = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MinAABBG - objectSizes[i],1)); //m4ToWOrld, or m_mBS
 				vector3 v1Max = static_cast<vector3>(objects[i]->m_m4ToWorld  * vector4(objects[i]->m_v3MaxAABBG + objectSizes[i],1));
 				// i against i+1, making sure i+1 is never greater than size
-				vector3 v2Min = static_cast<vector3>(m_m4SelectedObject * vector4(objects[9]->m_v3MinAABBG - objectSizes[9],1)); //m4ToWOrld
-				vector3 v2Max = static_cast<vector3>(m_m4SelectedObject * vector4(objects[9]->m_v3MaxAABBG + objectSizes[9],1));
-
-				//std::cout << objects[i]->GetInstanceName() << " " << v1Min.z << " " << v1Max.z << " " << objects[9]->GetInstanceName() << " " << v2Min.z << " " << v2Max.z << std::endl;
-				//vector3 v1Min = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MinAABBG,1));
-				//vector3 v1Max = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MaxAABBG,1));
-				//
-				//vector3 v2Min = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MinAABBG,1));
-				//vector3 v2Max = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MaxAABBG,1));
-
-				//I don't think this is checking all the collisions...
-				//Can't we use glm::distance to check?
-		
-				//collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
+				vector3 v2Min = static_cast<vector3>(m_m4SelectedObject * vector4(objects[j]->m_v3MinAABBG - objectSizes[j],1)); //m4ToWOrld
+				vector3 v2Max = static_cast<vector3>(m_m4SelectedObject * vector4(objects[j]->m_v3MaxAABBG + objectSizes[j],1));
 		
 				bool collision = true;
 				if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
@@ -167,17 +158,20 @@ void ApplicationClass::PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 				if(collision)
 				{
 					//m_lColor[i] = m_lColor[j] = MEBLUE; //We make the Boxes blue
-					objects[i]->m_bVisibleBS = objects[9]->m_bVisibleBS = true; //First, turn on box visibility
-					objects[i]->m_v3ColorBS = objects[9]->m_v3ColorBS = MEBLUE; //Then, we make the Boxes blue
+					objects[i]->m_bVisibleBS = objects[j]->m_bVisibleBS = true; //First, turn on box visibility
+					objects[i]->m_v3ColorBS = objects[j]->m_v3ColorBS = MEBLUE; //Then, we make the Boxes blue
 					//Then just increase pluto's z and have it bounce
 					bouncePluto = true;
-					std::cout << "Hit" << std::endl;
-					std::cout << objects[i]->Getname() << std::endl;
+					//std::cout << "Hit" << std::endl;
+					//std::cout << objects[i]->Getname() << std::endl;
+					//std::cout << objects[j]->Getname() << std::endl;
 					//system("PAUSE");
 				}
 
 				//std::cout << "Colliding?: " << collision << std::endl;
 				//std::cout << "Visible?: " << objects[i]->m_bVisibleAABB << std::endl;
+			}
+		}
 			
 	}
 	
@@ -189,6 +183,8 @@ void ApplicationClass::Update (void)
 	m_pSystem->UpdateTime(); //Update the system
 	m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject); //Setting up the Model Matrix
 	m_pMeshMngr->Update(); //Update the mesh information
+
+	bigTree *octree = new bigTree(m_pMeshMngr, planets, objectSizes);
 
 	static float fTotalTime = 0.0f;
 	float fLapDifference = m_pSystem->StopClock();
@@ -351,6 +347,9 @@ void ApplicationClass::Update (void)
 		//printThing = true;
 	if(movePluto)
 	{
+		//octree->objectsInsideLeaf(planetsToo);
+		//if(planetsToo.size() > 0)
+			//PlanetBounce(planetsToo);
 		PlanetBounce(planets);
 		if(bouncePluto)
 		{
@@ -390,7 +389,7 @@ void ApplicationClass::Update (void)
 
 	//Push planets into octree
 	Octants *oo = new Octants();
-	bigTree *octree = new bigTree(m_pMeshMngr, planets, objectSizes);
+	//bigTree *octree = new bigTree(m_pMeshMngr, planets, objectSizes);
 
 	//Subdivide the octree
     //octree->Subdivide(oo, false);
@@ -398,9 +397,9 @@ void ApplicationClass::Update (void)
 
 	//printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
 	m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
-	std::cout << "click: " << didIClick <<std::endl;
-	std::cout << "move: " << movePluto <<std::endl; 
-	std::cout << "bounce: " << bouncePluto <<std::endl;
+	//std::cout << "click: " << didIClick <<std::endl;
+	//std::cout << "move: " << movePluto <<std::endl; 
+	//std::cout << "bounce: " << bouncePluto <<std::endl;
 
 }
 

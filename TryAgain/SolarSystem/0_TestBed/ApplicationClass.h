@@ -55,6 +55,7 @@ class ApplicationClass
 	vector4 m_v4ClearColor;//Color of the scene
 
 	std::vector <BoundingObjectClass*>planets;
+	std::vector <BoundingObjectClass*>planetsToo;
 	std::vector<float> objectSizes;
 	
 public:
@@ -82,7 +83,7 @@ public:
 	*/
 	void GenerateBoundingSphere(matrix4 a_m4ToWorld, String a_sInstanceName);
 
-	void PlanetBounce(std::vector<BoundingObjectClass*>& objects);
+	void PlanetBounce(std::vector<BoundingObjectClass*> objects);
 
 private:
 	/* Constructor	*/
