@@ -1,47 +1,45 @@
-﻿Build started 5/11/2015 11:57:01 AM.
-     1>Project "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\0_TestBed\0_TestBed.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/11/2015 9:13:26 PM.
+     1>Project "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\0_TestBed\0_TestBed.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\\" /Fd"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\vc110.pdb" /Gd /TP /wd4251 /analyze- /errorReport:prompt /D _CRT_SECURE_NO_WARNINGS Application.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\\" /Fd"\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\vc110.pdb" /Gd /TP /wd4251 /analyze- /errorReport:prompt /D _CRT_SECURE_NO_WARNINGS Application.cpp
          Application.cpp
-     1>Application.cpp(112): warning C4018: '<' : signed/unsigned mismatch
-     1>Application.cpp(114): warning C4018: '<' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" glew32.lib SOIL.lib opengl32.lib glu32.lib "sfml-system.lib" "sfml-window.lib" MyEngine_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.lib" /MACHINE:X86 "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\BTO.res"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Application.obj"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\ApplicationClass.obj"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\ApplicationControls.obj"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\bigTree.obj"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Main.obj"
-         "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Octants.obj"
-         0_TestBed.vcxproj -> C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe" /INCREMENTAL /NOLOGO glew32.lib SOIL.lib opengl32.lib glu32.lib "sfml-system.lib" "sfml-window.lib" MyEngine_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree startD.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree startD.lib" /MACHINE:X86 "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\BTO.res"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Application.obj"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\ApplicationClass.obj"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\ApplicationControls.obj"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\bigTree.obj"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Main.obj"
+         "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree start\Debug\Octants.obj"
+         0_TestBed.vcxproj -> \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe
        PostBuildEvent:
-         mkdir “C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\”
-         mkdir “C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\Shaders\”
-         copy “C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe” “C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary”
-         xcopy "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\GL\bin" "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary" /y
-         xcopy "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\bin" "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary" /y
-         xcopy "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders" "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\Shaders" /y
+         mkdir “\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary\”
+         mkdir “\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary\Shaders\”
+         copy “\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\Z_DELETE\Octree startD.exe” “\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary”
+         xcopy "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\GL\bin" "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary" /y
+         xcopy "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\bin" "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary" /y
+         xcopy "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders" "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary\Shaders" /y
          :VCEnd
-         A subdirectory or file C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\ already exists.
-         A subdirectory or file C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\_Binary\Shaders\ already exists.
+         A subdirectory or file \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary\ already exists.
+         A subdirectory or file \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\_Binary\Shaders\ already exists.
                  1 file(s) copied.
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\GL\bin\glew32.dll
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\GL\bin\glut32.dll
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\GL\bin\glew32.dll
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\GL\bin\glut32.dll
          2 File(s) copied
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\bin\MyEngine.dll
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\bin\MyEngine_d.dll
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\bin\MyEngine.dll
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\bin\MyEngine_d.dll
          2 File(s) copied
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\Basic.fs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\Basic.vs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\Color.fs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\Color.vs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\MEShader.fs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\MEShader.vs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\MEShaderBW.fs
-         C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\include\ME\Shaders\MEShaderInv.fs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\Basic.fs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\Basic.vs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\Color.fs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\Color.vs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\MEShader.fs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\MEShader.vs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\MEShaderBW.fs
+         \\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\include\ME\Shaders\MEShaderInv.fs
          8 File(s) copied
-     1>Done Building Project "C:\Users\MAGICUser\Desktop\Project\TryAgain\SolarSystem\0_TestBed\0_TestBed.vcxproj" (Build target(s)).
+     1>Done Building Project "\\banner.main.ad.rit.edu\students\bbc4119\IGMProfile\Desktop\DSAProject\TryAgain\SolarSystem\0_TestBed\0_TestBed.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.92
+Time Elapsed 00:00:09.62

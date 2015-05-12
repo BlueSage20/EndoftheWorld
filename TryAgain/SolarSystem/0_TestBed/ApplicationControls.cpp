@@ -154,6 +154,10 @@ void ApplicationClass::ProcessMouse(void)
 	static bool bLeft_Released = false;
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
+		matrix4 m_m4inverseView =  glm::inverse(m_pCamera->GetView());
+		matrix4 m_m4camPos = glm::translate(m_pCamera->GetPosition());
+		matrix4 m_m4AsteroidTrans = m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) /*  m_m4camPos * m_pCamera->GetView()*/;
+		m_m4SelectedObject = m_m4AsteroidTrans;
 		bLeft_Released = true;
 	}
 	else
@@ -161,71 +165,7 @@ void ApplicationClass::ProcessMouse(void)
 		
 		if(bLeft_Released == true)
 		{
-			/*m_pMeshMngr->SetVisibleBoundingObject(false);
-			vector2 v2Object = m_pMeshMngr->m_pModelMngr->ShootRay(
-														sf::Mouse::getPosition().x,
-														sf::Mouse::getPosition().y,
-														m_pCamera,
-														false
-													);
-			String sInstance = m_pMeshMngr->GetNameOfInstanceByIndex(static_cast<int>(v2Object.x));
-			if(sInstance != "")
-			{
-				m_pMeshMngr->SetVisibleBoundingObject(true, sInstance);
-				m_sSelectedObject = sInstance;
-				m_m4SelectedObject = m_pMeshMngr->GetModelMatrix(m_sSelectedObject);
-				m_pMeshMngr->SetVisibleBoundingObjectHierarchy(true, m_sSelectedObject);
-			}*/
-			
-			//matrix4 assteroid = m_pMeshMngr->GetModelMatrix("Pluto");
-			//assteroid
-			//vector3 asteroidPos = m_pMeshMngr->
-			//take camera matrix
-				//go forth in the Z
-
-			//std::cout << "Output matrix: " << m_sSelectedObject << std::endl;
-			//std::cout << glm::to_string(m_m4SelectedObject);
-			//m_pMeshMngr->SetModelMatrix(m_pCamera->m_m4View, m_sSelectedObject);
-
-			//matrix4 m_m4CameraPosition = m_pCamera->GetPosition(); //math here
-			
-			//invert camera position & view
-			matrix4 m_m4inverseView =  glm::inverse(m_pCamera->GetView());
-
-			
-
-			matrix4 m_m4camPos = glm::translate(m_pCamera->GetPosition());
-
-			matrix4 m_m4AsteroidTrans = m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) /*  m_m4camPos * m_pCamera->GetView()*/;
-			
-			//Now we test a few combinations:
-			//this one is the same
-			//matrix4 m_m4AsteroidTrans = m_m4inverseView * m_m4camPos * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * glm::inverse(m_m4camPos) * m_pCamera->GetView();
-			
-			//also the same
-			//matrix4 m_m4AsteroidTrans = m_m4inverseView * m_pCamera->GetView() * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * glm::inverse(m_m4camPos);
-			
-			//more of the same, regardless of the position of m_m4inverseView
-			//matrix4 m_m4AsteroidTrans = glm::inverse(m_m4camPos) * m_m4camPos * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4inverseView * m_pCamera->GetView();
-
-			//blah
-			//matrix4 m_m4AsteroidTrans = glm::inverse(m_m4camPos) * m_pCamera->GetView() * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f)) * m_m4camPos * m_m4inverseView;
-
-			//?
-			//matrix4 m_m4AsteroidTrans = m_m4camPos * m_pCamera->GetView() * m_m4inverseView * glm::inverse(m_m4camPos) * glm::translate(m_pCamera->GetPosition() + vector3(0.0f, 0.0f, -5.0f));
-			
-			m_m4SelectedObject = m_m4AsteroidTrans;
-			//std::cout << didIClick << std::endl;
 			didIClick = true;
-			//std::cout << didIClick << std::endl;
-			//std::cout << glm::to_string(m_m4SelectedObject) << std::endl;
-
-			
-
-			//This class can access Pluto's matrix
-			//So what matrix are we going to give to it?
-
-			//m_m4SelectedObject = m_m4CameraPosition;
 		}
 		
 		bLeft_Released = false;

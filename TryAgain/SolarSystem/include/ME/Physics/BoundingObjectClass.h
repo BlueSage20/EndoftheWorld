@@ -12,7 +12,7 @@ class MyEngineDLL BoundingObjectClass
 {
 	bool m_bVisibleOBB;		//Visibility of the Oriented Bounding Box
 	//bool m_bVisibleAABB;	//Visibility of the Axis Aligned Bounding Box
-	bool m_bVisibleBS;		//Visibility of the Bounding Sphere
+	//bool m_bVisibleBS;		//Visibility of the Bounding Sphere
 
 	float m_fRadius;		//Radius of the BS
 
@@ -22,7 +22,7 @@ class MyEngineDLL BoundingObjectClass
 
 	//vector3 m_v3ColorAABB;	//Color of the Axis Aligned Bounding Box
 	vector3 m_v3ColorOBB;	//Color of the Oriented Bounding Box
-	vector3 m_v3ColorBS;	//Color of the Bounding Sphere
+	//vector3 m_v3ColorBS;	//Color of the Bounding Sphere
 	vector3 m_v3CentroidL;	//Centroid of the BO in local space
 	//vector3 m_v3MaxAABBG;	//Max of the AABB in global space
 	//vector3 m_v3MinAABBG;	//Min of the AABB in global space
@@ -37,7 +37,9 @@ class MyEngineDLL BoundingObjectClass
 
 public:
 	vector3 m_v3ColorAABB;	//Color of the Axis Aligned Bounding Box
+	vector3 m_v3ColorBS;
 	bool m_bVisibleAABB;	//Visibility of the Axis Aligned Bounding Box
+	bool m_bVisibleBS;
 	
 	vector3 m_v3MaxAABBG;	//Max of the AABB in global space
 	vector3 m_v3MinAABBG;

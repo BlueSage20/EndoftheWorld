@@ -82,6 +82,8 @@ public:
 	*/
 	void GenerateBoundingSphere(matrix4 a_m4ToWorld, String a_sInstanceName);
 
+	void PlanetBounce(std::vector<BoundingObjectClass*>& objects);
+
 private:
 	/* Constructor	*/
 	ApplicationClass();

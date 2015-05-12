@@ -68,7 +68,7 @@ void bigTree::createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bounding
 	minPos = objectsList[0]->GetCentroidGlobal() - objectSizes[0];
 	maxPos = objectsList[0]->GetCentroidGlobal() + objectSizes[0];
 
-	for(int i = 0; i < objectsList.size(); i++){
+	for(std::size_t i = 0; i < objectsList.size(); i++){
 		if (minPos.x > objectsList[i]->GetCentroidGlobal().x - objectSizes[i]){
 			minPos.x = objectsList[i]->GetCentroidGlobal().x - objectSizes[i];
 		}
@@ -111,7 +111,7 @@ void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bound
 	//Might as well check for collisions here, too
 	//They only collide if they are in the same box
 
-	for(int i = 0; i < objectsList.size(); i++){
+	for(std::size_t i = 0; i < objectsList.size(); i++){
 		if (objectsList[i]->IsColliding(*octBO))
 		{
 			objectsInside.push_back(objectsList[i]);

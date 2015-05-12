@@ -30,6 +30,9 @@ float randStartSaturn;
 float randStartUranus;
 float randStartNeptune;
 
+bool bouncePluto;
+bool movePluto;
+
 void ApplicationClass::InitUserAppVariables()
 {	
 	randStartMercury = (float)rand();
@@ -96,6 +99,9 @@ void ApplicationClass::InitUserAppVariables()
 	objectSizes.push_back(2.3827f);
 	objectSizes.push_back(1.0f);
 
+	bouncePluto = false;
+	movePluto = false;
+
 	//PlaySound("Zarathrustra.mp3", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
 }
 
@@ -104,52 +110,78 @@ void ApplicationClass::InitUserAppVariables()
 //BoundingObjectClass** objArr
 
 // Takes in a reference to a list of objects withing an octantaa
-void PlanetBounce(std::vector<BoundingObjectClass*>& objects)
+void ApplicationClass::PlanetBounce(std::vector<BoundingObjectClass*>& objects)
 {
 	//bool collision = false; //?
 
 	// loop through the array of objects
-	for( int i = 0; i < objects.size() - 1; i++)
+	for(std::size_t i = 0; i < objects.size() -1; i++)
 	{
-		for(int j = i + 1; j < objects.size(); j++){
-		//We need min and maxes to be checked
-		//Accessing matrix of each object in the list and making mins/maxes
-	    vector3 v1Min = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MinAABBG,1));
-        vector3 v1Max = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MaxAABBG,1));
-		// i against i+1, making sure i+1 is never greater than size
-		vector3 v2Min = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MinAABBG,1));
-        vector3 v2Max = static_cast<vector3>(objects[j]->m_m4ToWorld * vector4(objects[j]->m_v3MaxAABBG,1));
-
-	    //vector3 v1Min = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MinAABBG,1));
-        //vector3 v1Max = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MaxAABBG,1));
-		//
-		//vector3 v2Min = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MinAABBG,1));
-        //vector3 v2Max = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MaxAABBG,1));
-
-		//I don't think this is checking all the collisions...
-		//Can't we use glm::distance to check?
 		
-		//collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
-		
-		bool collision = true;	
-		if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
-				collision = false;
-			else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y)
-				collision = false;
-			else if(v1Max.z < v2Min.z || v1Min.z > v2Max.z)
-				collision = false;
-		
-		if(collision){
-			//m_lColor[i] = m_lColor[j] = MEBLUE; //We make the Boxes blue
-			objects[i]->m_bVisibleAABB = objects[j]->m_bVisibleAABB = true; //First, turn on box visibility
-			objects[i]->m_v3ColorAABB = objects[j]->m_v3ColorAABB = MEBLUE; //Then, we make the Boxes blue
-			//Then just increase pluto's z and have it bounce
-		}
+				//We need min and maxes to be checked
+				//Accessing matrix of each object in the list and making mins/maxes
+				vector3 v1Min = static_cast<vector3>(objects[i]->m_m4ToWorld * vector4(objects[i]->m_v3MinAABBG - objectSizes[i],1)); //m4ToWOrld, or m_mBS
+				vector3 v1Max = static_cast<vector3>(objects[i]->m_m4ToWorld  * vector4(objects[i]->m_v3MaxAABBG + objectSizes[i],1));
+				// i against i+1, making sure i+1 is never greater than size
+				vector3 v2Min = static_cast<vector3>(m_m4SelectedObject * vector4(objects[9]->m_v3MinAABBG - objectSizes[9],1)); //m4ToWOrld
+				vector3 v2Max = static_cast<vector3>(m_m4SelectedObject * vector4(objects[9]->m_v3MaxAABBG + objectSizes[9],1));
 
-		std::cout << "Colliding?: " << collision << std::endl;
-		std::cout << "Visible?: " << objects[i]->m_bVisibleAABB << std::endl;
+				//std::cout << objects[i]->GetInstanceName() << " " << v1Min.z << " " << v1Max.z << " " << objects[9]->GetInstanceName() << " " << v2Min.z << " " << v2Max.z << std::endl;
+				//vector3 v1Min = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MinAABBG,1));
+				//vector3 v1Max = static_cast<vector3>(objects[i]->m_mAABB * vector4(objects[i]->m_v3MaxAABBG,1));
+				//
+				//vector3 v2Min = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MinAABBG,1));
+				//vector3 v2Max = static_cast<vector3>(objects[j]->m_mAABB * vector4(objects[j]->m_v3MaxAABBG,1));
+
+				//I don't think this is checking all the collisions...
+				//Can't we use glm::distance to check?
+		
+				//collision = objects[i]->IsColliding(*objects[i+1], false); // No idea what this second parameter is
+		
+				bool collision = true;
+				if(v1Max.x < v2Min.x || v1Min.x > v2Max.x)
+				{
+					collision = false;
+					//std::cout << "1" <<std::endl;
+				}
+				else if(v1Max.y < v2Min.y || v1Min.y > v2Max.y)
+				{
+					collision = false;
+					//std::cout << "2" <<std::endl;
+				}
+				else if(v1Max.z < v2Min.z || v1Min.z > v2Max.z)
+				{
+					collision = false;
+					//std::cout << "3" <<std::endl;
+				}
+				else
+				{
+					collision = true;
+					//std::cout << "4" <<std::endl;
+				}
+		
+				if(collision)
+				{
+					//m_lColor[i] = m_lColor[j] = MEBLUE; //We make the Boxes blue
+					objects[i]->m_bVisibleBS = objects[9]->m_bVisibleBS = true; //First, turn on box visibility
+					objects[i]->m_v3ColorBS = objects[9]->m_v3ColorBS = MEBLUE; //Then, we make the Boxes blue
+					//Then just increase pluto's z and have it bounce
+					bouncePluto = true;
+					//std::cout << "Hit" << std::endl;
+					std::cout << objects[i]->Getname() << std::endl;
+					std::cout << objects[9]->Getname() << std::endl;
+					std::cout << "This is bouncePluto: " << bouncePluto << std::endl;
+					//std::cout << "This is didIClick: " << didIClick << std::endl;
+					//didIClick = false;
+					//std::cout << "This is didIClick: " << didIClick << std::endl;
+					//system("PAUSE");
+				}
+
+				//std::cout << "Colliding?: " << collision << std::endl;
+				//std::cout << "Visible?: " << objects[i]->m_bVisibleAABB << std::endl;
+			
 	}
- }
+	
 
 }
 
@@ -312,16 +344,36 @@ void ApplicationClass::Update (void)
 					* glm::rotate(matrix4(IDENTITY), fNeptuneDayPercent * 360, vector3(0.0f, 1.0f, 0.0f))
 					  * glm::scale(2.3827f, 2.3827f, 2.3827f);
 	m_pMeshMngr->SetModelMatrix(m4Neptune, "Neptune");
+
+	m4Pluto = m_m4SelectedObject;
+	m_pMeshMngr->SetModelMatrix(m4Pluto, "Pluto");
+
+	PlanetBounce(planets);
+		//printThing = true;
+	if(movePluto)
+	{
+		if(bouncePluto)
+		{
+			m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, 1.0f);
+		}
+		else
+		{
+			m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, -1.0f);
+		}
+	}
+
 #pragma endregion
 
 	if(didIClick == true)
 	{
-		//printThing = true;
-		m_m4SelectedObject = m_m4SelectedObject * glm::translate(0.0f, 0.0f, -1.0f);
+		bouncePluto = false;
+		movePluto = true;
+		
 		m_pMeshMngr->SetModelMatrix(m_m4SelectedObject, m_sSelectedObject);
-		PlanetBounce(planets);
+		//PlanetBounce(planets);
 		//std::cout << didIClick << std::endl;
 		//std::cout << "Moving" << std::endl;]
+		didIClick = false;
 		
 	}
 
@@ -343,6 +395,6 @@ void ApplicationClass::Update (void)
     //octree->Subdivide(oo, false);
 	
 
-	printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
+	//printf("FPS: %d\r", m_pSystem->FPS);//print the Frames per Second	
 }
 
