@@ -181,6 +181,13 @@ void bigTree::subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<Bound
 	}
 }
 
+std::vector<BoundingObjectClass*> bigTree::objectsInsideLeaf(){
+	if (isLeaf == true || treeLevel == maxLevels)
+	{
+		return objectsInside;
+	}
+}
+
 void bigTree::Render(MeshManagerSingleton* m_pMeshMngr)
 {
 	m_pMeshMngr->AddCubeToQueue(glm::translate(centroid) * glm::scale(vector3(octSize, octSize, octSize)), MERED, MERENDER::WIRE);

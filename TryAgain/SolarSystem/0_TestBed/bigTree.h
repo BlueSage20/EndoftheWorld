@@ -7,7 +7,7 @@
 using namespace MyEngine;
 
 const int maxLevels = 3; //Maximum sublevel of the tree
-const int maxObjects = 1; //Maximum number of objects per octant
+const int maxObjects = 2; //Maximum number of objects per octant
 
 /// CLASS
 class bigTree
@@ -49,6 +49,7 @@ public:
 	//This is the method that will build the octree. Can we pass the root node into it?
 	void createTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList, std::vector<float> objectSizes);
 	void subdivideTree(MeshManagerSingleton* m_pMeshMngr, std::vector<BoundingObjectClass*> objectsList);
+	std::vector<BoundingObjectClass*> objectsInsideLeaf();
 	
 	//calculates octants (only if we have an object)
 	void updatePosition(BoundingObjectClass* bObj);
